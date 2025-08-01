@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindLinkU - Interface</title>
+
+    <style>
+        
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        }
+
+        /* Light Mode */
+        body.light-mode {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        body.dark-mode .logo-icon {
+            background: linear-gradient(45deg, #00c9ff, #92fe9d);
+        }
+
+        body.light-mode .logo-icon {
+            background: linear-gradient(45deg, #4b6cb7, #182848);
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        body.dark-mode .logo h1 {
+            background: linear-gradient(to right, #ffffff, #a8edea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        body.light-mode .logo h1 {
+            background: linear-gradient(to right, #4b6cb7, #182848);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        body.dark-mode nav a {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        body.light-mode nav a {
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        body.dark-mode nav a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode nav a:hover {
+            color: #000;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .theme-toggle {
+            color: #ffd700;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode .theme-toggle {
+            color: #ffd700;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+
+        .signup-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .signup-button {
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .patient-button {
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            color: #0f2027;
+        }
+
+        .doctor-button {
+            background: linear-gradient(45deg, #00c9ff, #92fe9d);
+            color: #0f2027;
+        }
+
+        .signup-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 0 40px;
+        }
+
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        body.dark-mode .hero h2 {
+            background: linear-gradient(to right, #ffffff, #a8edea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        body.light-mode .hero h2 {
+            background: linear-gradient(to right, #4b6cb7, #182848);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        body.dark-mode .hero p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        body.light-mode .hero p {
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+
+        body.dark-mode .cta-button {
+            background: linear-gradient(45deg, #00c9ff, #92fe9d);
+            color: #0f2027;
+        }
+
+        body.light-mode .cta-button {
+            background: linear-gradient(45deg, #4b6cb7, #182848);
+            color: white;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-sections {
+            display: flex;
+            gap: 30px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+
+        .user-section {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        body.dark-mode .user-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode .user-section {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .user-section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .user-section:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode .user-section:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .patient-section {
+            border-top: 5px solid #ff7e5f;
+        }
+
+        .doctor-section {
+            border-top: 5px solid #00c9ff;
+        }
+
+        .section-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .patient-icon {
+            color: #ff7e5f;
+        }
+
+        .doctor-icon {
+            color: #00c9ff;
+        }
+
+        .user-section h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        body.dark-mode .user-section h3 {
+            color: white;
+        }
+
+        body.light-mode .user-section h3 {
+            color: #333;
+        }
+
+        .user-section ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .user-section ul li {
+            padding: 10px 0;
+        }
+
+        body.dark-mode .user-section ul li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode .user-section ul li {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .user-section ul li:before {
+            content: "✓";
+            margin-right: 10px;
+            color: #00c9ff;
+        }
+
+        .features {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        body.dark-mode .section-title {
+            background: linear-gradient(to right, #00c9ff, #92fe9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        body.light-mode .section-title {
+            background: linear-gradient(to right, #4b6cb7, #182848);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        body.dark-mode .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode .feature-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .feature-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode .feature-card:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+
+        body.dark-mode .feature-icon {
+            background: linear-gradient(45deg, #00c9ff, #92fe9d);
+        }
+
+        body.light-mode .feature-icon {
+            background: linear-gradient(45deg, #4b6cb7, #182848);
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        body.dark-mode .feature-card h3 {
+            color: white;
+        }
+
+        body.light-mode .feature-card h3 {
+            color: #333;
+        }
+
+        .feature-card p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        body.dark-mode .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        body.light-mode .feature-card p {
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .applications {
+            padding: 60px 0;
+            border-radius: 30px;
+            margin: 40px 0;
+        }
+
+        body.dark-mode .applications {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-mode .applications {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .app-card {
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        body.dark-mode .app-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode .app-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .app-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode .app-card:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .app-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .testimonials {
+            padding: 60px 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        body.dark-mode .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode .testimonial-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        body.dark-mode .testimonial-text {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        body.light-mode .testimonial-text {
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        body.dark-mode .author-avatar {
+            background: linear-gradient(45deg, #00c9ff, #92fe9d);
+        }
+
+        body.light-mode .author-avatar {
+            background: linear-gradient(45deg, #4b6cb7, #182848);
+        }
+
+        .technology {
+            padding: 60px 0;
+        }
+
+        .tech-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .tech-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .tech-image {
+            flex: 1;
+            min-width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+        }
+
+        body.dark-mode .tech-image {
+            background: linear-gradient(45deg, #00c9ff, #92fe9d);
+        }
+
+        body.light-mode .tech-image {
+            background: linear-gradient(45deg, #4b6cb7, #182848);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body.dark-mode .modal {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        body.light-mode .modal {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .modal-content {
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .modal-content {
+            background: linear-gradient(135deg, #0f2027, #203a43);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode .modal-content {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        body.dark-mode .close-button {
+            color: white;
+        }
+
+        body.light-mode .close-button {
+            color: #333;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .modal-body h3 {
+            margin-bottom: 15px;
+        }
+
+        body.dark-mode .modal-body h3 {
+            color: #00c9ff;
+        }
+
+        body.light-mode .modal-body h3 {
+            color: #4b6cb7;
+        }
+
+        .modal-body p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        body.dark-mode .form-group input, 
+        body.dark-mode .form-group select, 
+        body.dark-mode .form-group textarea {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        body.light-mode .form-group input, 
+        body.light-mode .form-group select, 
+        body.light-mode .form-group textarea {
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            outline: none;
+        }
+
+        body.dark-mode .form-group input:focus, 
+        body.dark-mode .form-group select:focus, 
+        body.dark-mode .form-group textarea:focus {
+            border-color: #00c9ff;
+        }
+
+        body.light-mode .form-group input:focus, 
+        body.light-mode .form-group select:focus, 
+        body.light-mode .form-group textarea:focus {
+            border-color: #4b6cb7;
+        }
+
+        .modal-footer {
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        body.dark-mode footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Portal Styles */
+        .portal-container {
+            display: none;
+            padding: 40px 0;
+        }
+
+        .portal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .portal-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .portal-card {
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        body.dark-mode .portal-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode .portal-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .portal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .portal-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .logout-button {
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .portal-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .portal-modal-content {
+            background: linear-gradient(135deg, #0f2027, #203a43);
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .portal-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .portal-modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(to right, #00c9ff, #92fe9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .portal-close-button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .portal-modal-body {
+            margin-bottom: 20px;
+        }
+
+        .portal-modal-body h3 {
+            margin-bottom: 15px;
+            color: #00c9ff;
+        }
+
+        .portal-modal-body p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .portal-modal-footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #00c9ff, #92fe9d);
+            color: #0f2027;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Mood Tracker Styles */
+        .mood-tracker {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mood-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .mood-title {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .mood-form {
+            margin-top: 20px;
+        }
+
+        .mood-options {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .mood-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            width: 80px;
+        }
+
+        .mood-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .mood-option.selected {
+            background: rgba(255, 126, 95, 0.3);
+            border: 2px solid #ff7e5f;
+        }
+
+        .mood-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .mood-label {
+            font-size: 14px;
+        }
+
+        .thoughts-textarea {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            margin-bottom: 20px;
+            resize: vertical;
+        }
+
+        .thoughts-textarea:focus {
+            outline: none;
+            border-color: #ff7e5f;
+        }
+
+        .submit-mood {
+            padding: 12px 30px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            color: #0f2027;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .submit-mood:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mood-history {
+            margin-top: 30px;
+        }
+
+        .history-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #ff7e5f;
+        }
+
+        .history-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .history-date {
+            font-weight: 600;
+            color: #ff7e5f;
+            margin-bottom: 5px;
+        }
+
+        .history-mood {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .history-thoughts {
+            margin-top: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* AI Chat Styles */
+        .chat-popup {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .chat-toggle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00c9ff, #92fe9d);
+            color: #0f2027;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-window {
+            position: fixed;
+            bottom: 120px;
+            right: 30px;
+            width: 400px;
+            height: 500px;
+            background: linear-gradient(135deg, #0f2027, #203a43);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            z-index: 1001;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-title {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(to right, #00c9ff, #92fe9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .chat-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            line-height: 1.5;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            color: #0f2027;
+            border-bottom-right-radius: 5px;
+        }
+
+        .ai-message {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-input-container {
+            display: flex;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #00c9ff;
+        }
+
+        .send-button {
+            padding: 12px 20px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #00c9ff, #92fe9d);
+            color: #0f2027;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .send-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .typing-indicator {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 12px 18px;
+            display: none;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #00c9ff;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+            }
+            
+            nav ul {
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .signup-buttons {
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .user-sections {
+                flex-direction: column;
+            }
+            
+            .tech-container {
+                flex-direction: column;
+            }
+            
+            .mood-options {
+                justify-content: center;
+            }
+            
+            .chat-window {
+                width: 300px;
+                height: 400px;
+                bottom: 110px;
+                right: 20px;
+            }
+        }
+
+    </style>
+    
+</head>
+<body class="dark-mode">
+    <div class="container">
+        <!-- Main Website Content -->
+        <div id="main-content">
+            <header>
+                <div class="logo">
+                    <div class="logo-icon">🧠</div>
+                    <h1>Mind Link</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link" data-target="home">Home</a></li>
+                        <li><a href="#" class="nav-link" data-target="technology">Technology</a></li>
+                        <li><a href="#" class="nav-link" data-target="applications">Applications</a></li>
+                        <li><a href="#" class="nav-link" data-target="research">Research</a></li>
+                        <li><a href="#" class="nav-link" data-target="contact">Contact</a></li>
+                    </ul>
+                    <button class="theme-toggle" id="theme-toggle">🌙</button>
+                    <div class="signup-buttons">
+                        
+                    <button class="signup-button patient-button" id="patient-signup">
+                        patient portal
+                    </button>
+                        <button class="signup-button doctor-button" id="doctor-signup">Doctor Portal</button>
+                    </div>
+                </nav>
+            </header>
+
+            <section class="hero" id="home">
+                <h2>Revolutionizing Medical Neuroscience</h2>
+                <p>Mind Link is pioneering brain-computer interfaces for medical applications, offering unprecedented opportunities for treating neurological conditions and enhancing human cognitive capabilities.</p>
+                <button class="cta-button" id="explore-btn">Explore Research</button>
+            </section>
+
+            <section class="user-sections">
+                <div class="user-section patient-section">
+                    <div class="section-icon patient-icon">👤</div>
+                    <h3>Patient Portal</h3>
+                    <p>Access personalized treatment options and monitor your progress with our advanced neural interface technology.</p>
+                    <ul>
+                        <li>View treatment options for your condition</li>
+                        <li>Track therapy progress and results</li>
+                        <li>Schedule appointments with specialists</li>
+                        <li>Access educational resources</li>
+                        <li>Connect with support communities</li>
+                        <li>Manage your health records securely</li>
+                    </ul>
+                    <button class="signup-button patient-button" id="patient-learn-more"> Learn More</button>
+                </div>
+                
+                <div class="user-section doctor-section">
+                    <div class="section-icon doctor-icon">👨‍⚕️</div>
+                    <h3>Doctor Portal</h3>
+                    <p>Access cutting-edge tools and resources for treating neurological conditions with precision and effectiveness.</p>
+                    <ul>
+                        <li>Access patient data and treatment history</li>
+                        <li>Utilize advanced diagnostic tools</li>
+                        <li>Collaborate with research teams</li>
+                        <li>Monitor patient progress in real-time</li>
+                        <li>Access clinical trial information</li>
+                        <li>Stay updated on latest research</li>
+                    </ul>
+                    <button class="signup-button doctor-button" id="doctor-learn-more">Learn More</button>
+                </div>
+            </section>
+
+            <section class="features">
+               <h2 class="section-title">Mental Health Applications</h2>
+<div class="features-grid">
+  <div class="feature-card">
+    <div class="feature-icon">🧠</div>
+    <h3>Stress Management</h3>
+    <p>Help users monitor and reduce stress through real-time biofeedback and personalized relaxation techniques.</p>
+    <button class="cta-button learn-more" data-app="stress-management">Learn More</button>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">💬</div>
+    <h3>Emotional Support</h3>
+    <p>Provide AI-powered chatbots and mindfulness exercises to assist users in managing anxiety and depression.</p>
+    <button class="cta-button learn-more" data-app="emotional-support">Learn More</button>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">🧘‍♀️</div>
+    <h3>Meditation & Mindfulness</h3>
+    <p>Guide users through meditation sessions and mindfulness practices to improve overall mental wellbeing.</p>
+    <button class="cta-button learn-more" data-app="meditation">Learn More</button>
+  </div>
+</div>
+
+            </section>
+
+            <section class="applications" id="applications">
+                <h2 class="section-title">Clinical Applications</h2>
+<div class="app-grid">
+  <div class="app-card">
+    <div class="app-icon">🧘‍♂️</div>
+    <h3>Anxiety Management</h3>
+    <p>Personalized neural feedback and cognitive behavioral therapy tools to reduce anxiety symptoms.</p>
+    <button class="cta-button learn-more" data-app="anxiety">Details</button>
+  </div>
+  <div class="app-card">
+    <div class="app-icon">🧠</div>
+    <h3>Depression Therapy</h3>
+    <p>Non-invasive brain stimulation and personalized treatment plans to support depression recovery.</p>
+    <button class="cta-button learn-more" data-app="depression">Details</button>
+  </div>
+  <div class="app-card">
+    <div class="app-icon">💤</div>
+    <h3>Sleep Disorders</h3>
+    <p>Neural interventions and behavioral techniques to improve sleep quality and treat insomnia.</p>
+    <button class="cta-button learn-more" data-app="sleep">Details</button>
+  </div>
+  <div class="app-card">
+    <div class="app-icon">🧩</div>
+    <h3>PTSD Treatment</h3>
+    <p>Targeted therapies combining neural stimulation and psychotherapy for post-traumatic stress disorder.</p>
+    <button class="cta-button learn-more" data-app="ptsd">Details</button>
+  </div>
+</div>
+
+            </section>
+
+            <section class="technology" id="technology">
+               <h2 class="section-title">Breakthrough Technology</h2>
+<div class="tech-container">
+  <div class="tech-content">
+    <h3>Next-Gen Mental Health Tech</h3>
+    <p>Our innovative platform integrates state-of-the-art technologies designed to revolutionize mental wellness:</p>
+    <ul style="margin: 20px 0 20px 20px; line-height: 1.8;">
+      <li>AI-driven mood and behavior prediction algorithms</li>
+      <li>Wearable neurofeedback devices for real-time emotional regulation</li>
+      <li>Immersive virtual reality environments for guided therapy sessions</li>
+      <li>Cloud-based personalized mental health analytics and insights</li>
+      <li>Adaptive neural modulation tailored to individual brain patterns</li>
+    </ul>
+    <p>This futuristic approach empowers individuals with proactive, personalized mental health support for lasting wellbeing.</p>
+    <button class="cta-button" id="tech-details-btn">Explore Technology</button>
+  </div>
+  <div class="tech-image" style="font-size: 4rem; user-select: none;">🧠✨</div>
+</div>
+
+            </section>
+
+           <section class="testimonials" id="research">
+    <h2 class="section-title">Mental Health Expert Testimonials</h2>
+    <div class="testimonial-grid">
+        <div class="testimonial-card">
+            <p class="testimonial-text">"MindLinkU has revolutionized digital mental health care. The AI-assisted therapy modules have significantly improved patient engagement and helped reduce symptoms of anxiety and depression in just a few weeks."</p>
+            <div class="testimonial-author">
+                <div class="author-avatar"></div>
+                <div>
+                    <h4>Dr. Alicia Reynolds</h4>
+                    <p>Clinical Psychologist, Massachusetts General Hospital</p>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-card">
+            <p class="testimonial-text">"The real-time mood tracking and adaptive journaling features provide us with unprecedented insights into patient well-being. It’s a vital tool for remote care and early intervention."</p>
+            <div class="testimonial-author">
+                <div class="author-avatar"></div>
+                <div>
+                    <h4>Dr. Rajeev Menon</h4>
+                    <p>Psychiatrist, NIMHANS</p>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-card">
+            <p class="testimonial-text">"As a mental health researcher, I’m impressed by the platform’s ability to use NLP to identify distress signals in journal entries. It’s changing how we monitor risk in outpatient care."</p>
+            <div class="testimonial-author">
+                <div class="author-avatar"></div>
+                <div>
+                    <h4>Dr. Lillian Torres</h4>
+                    <p>Research Fellow, Harvard School of Public Health</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+            <footer id="contact">
+                <p>&copy; 2023 Mind Link Medical Technologies. All rights reserved.</p>
+                <p>Advancing neuroscience for patient care and human enhancement.</p>
+                <button class="cta-button" id="contact-btn">Contact Us</button>
+            </footer>
+        </div>
+
+        <!-- Patient Portal -->
+        <div class="portal-container" id="patient-portal">
+            <div class="portal-header">
+                <h2>Patient Dashboard</h2>
+                <button class="logout-button" id="patient-logout">Logout</button>
+            </div>
+            
+            <!-- Mood Tracker Section -->
+            <div class="mood-tracker">
+                <div class="mood-header">
+                    <h2 class="mood-title">How are you feeling today?</h2>
+                </div>
+                <p>We'd love to hear about your current mood and any thoughts you'd like to share. This helps us track your progress and provide better care.</p>
+                
+                <form class="mood-form" id="mood-form">
+                    <div class="mood-options">
+                        <div class="mood-option" data-mood="excellent">
+                            <div class="mood-icon">😊</div>
+                            <div class="mood-label">Excellent</div>
+                        </div>
+                        <div class="mood-option" data-mood="good">
+                            <div class="mood-icon">🙂</div>
+                            <div class="mood-label">Good</div>
+                        </div>
+                        <div class="mood-option" data-mood="okay">
+                            <div class="mood-icon">😐</div>
+                            <div class="mood-label">Okay</div>
+                        </div>
+                        <div class="mood-option" data-mood="poor">
+                            <div class="mood-icon">🙁</div>
+                            <div class="mood-label">Poor</div>
+                        </div>
+                        <div class="mood-option" data-mood="bad">
+                            <div class="mood-icon">😞</div>
+                            <div class="mood-label">Bad</div>
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" id="selected-mood" name="mood">
+                    
+                    <label for="thoughts">Share your thoughts (optional):</label>
+                    <textarea id="thoughts" class="thoughts-textarea" name="thoughts" placeholder="How are you feeling today? Any concerns or positive experiences you'd like to share?"></textarea>
+                    
+                    <button type="submit" class="submit-mood">Submit Mood Check</button>
+                </form>
+                
+                <div class="mood-history" id="mood-history">
+                    <h3 class="history-title">Your Recent Mood History</h3>
+                    <div id="history-container">
+
+                        <!-- Mood history will be populated here -->
+
+
+                        
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            
+            
+            <div class="portal-content">
+                <div class="portal-card" data-feature="progress">
+                    <div class="portal-icon">📊</div>
+                    <h3>Treatment Progress</h3>
+                    <p>View your therapy progress and results over time with detailed analytics and visualizations.</p>
+                </div>
+                <div class="portal-card" data-feature="appointments">
+                    <div class="portal-icon">📅</div>
+                    <h3>Appointments</h3>
+                    <p>Schedule and manage your appointments with specialists and track upcoming sessions.</p>
+                </div>
+                
+                <div class="portal-card" data-feature="resources">
+                    <div class="portal-icon">📚</div>
+                    <h3>Educational Resources</h3>
+                    <p>Access personalized educational materials about your condition and treatment options.</p>
+                </div>
+                <div class="portal-card" data-feature="community">
+                    <div class="portal-icon">👥</div>
+                    <h3>Support Community</h3>
+                    <p>Connect with other patients and share experiences in our secure support network.</p>
+                </div>
+                <div class="portal-card" data-feature="records">
+                    <div class="portal-icon">📝</div>
+                    <h3>Health Records</h3>
+                    <p>Manage and access your medical records securely from anywhere.</p>
+                </div>
+                <div class="portal-card" data-feature="notifications">
+                    <div class="portal-icon">🔔</div>
+                    <h3>Notifications</h3>
+                    <p>Receive important updates about your treatment and appointments.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Doctor Portal -->
+        <div class="portal-container" id="doctor-portal">
+            <div class="portal-header">
+                <h2>Medical Professional Dashboard</h2>
+                <button class="logout-button" id="doctor-logout">Logout</button>
+            </div>
+            <div class="portal-content">
+                <div class="portal-card" data-feature="patient-data">
+                    <div class="portal-icon">📋</div>
+                    <h3>Patient Data</h3>
+                    <p>Access comprehensive patient data and treatment history for informed decision-making.</p>
+                </div>
+                <div class="portal-card" data-feature="diagnostics">
+                    <div class="portal-icon">🔬</div>
+                    <h3>Diagnostic Tools</h3>
+                    <p>Utilize our advanced diagnostic tools and AI-enhanced analysis platforms.</p>
+                </div>
+                <div class="portal-card" data-feature="collaboration">
+                    <div class="portal-icon">👥</div>
+                    <h3>Collaboration</h3>
+                    <p>Collaborate with research teams and other specialists worldwide.</p>
+                </div>
+                <div class="portal-card" data-feature="monitoring">
+                    <div class="portal-icon">📈</div>
+                    <h3>Real-time Monitoring</h3>
+                    <p>Monitor patient progress in real-time with our advanced tracking systems.</p>
+                </div>
+                <div class="portal-card" data-feature="trials">
+                    <div class="portal-icon">🧪</div>
+                    <h3>Clinical Trials</h3>
+                    <p>Access information about ongoing clinical trials and research opportunities.</p>
+                </div>
+                <div class="portal-card" data-feature="updates">
+                    <div class="portal-icon">📰</div>
+                    <h3>Research Updates</h3>
+                    <p>Stay updated on the latest research developments and publications.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portal Modals -->
+        <div class="portal-modal" id="patient-feature-modal">
+            <div class="portal-modal-content">
+                <div class="portal-modal-header">
+                    <h2 class="portal-modal-title" id="patient-modal-title">Feature Details</h2>
+                    <button class="portal-close-button">&times;</button>
+                </div>
+                <div class="portal-modal-body">
+                    <h3 id="patient-modal-subtitle">Feature Information</h3>
+                    <p id="patient-modal-content">Detailed information about this feature will appear here.</p>
+                </div>
+                <div class="portal-modal-footer">
+                    <button class="back-button" id="patient-modal-back">Back to Dashboard</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="portal-modal" id="doctor-feature-modal">
+            <div class="portal-modal-content">
+                <div class="portal-modal-header">
+                    <h2 class="portal-modal-title" id="doctor-modal-title">Feature Details</h2>
+                    <button class="portal-close-button">&times;</button>
+                </div>
+                <div class="portal-modal-body">
+                    <h3 id="doctor-modal-subtitle">Feature Information</h3>
+                    <p id="doctor-modal-content">Detailed information about this feature will appear here.</p>
+                </div>
+                <div class="portal-modal-footer">
+                    <button class="back-button" id="doctor-modal-back">Back to Dashboard</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals -->
+        <div class="modal" id="info-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-title">Application Details</h2>
+                    <button class="close-button">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h3 id="modal-subtitle">Application Information</h3>
+                    <p id="modal-content">Detailed information about this medical application will appear here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="cta-button" id="modal-close">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="patient-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Patient Registration</h2>
+                    <button class="close-button">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="patient-form">
+                        <div class="form-group">
+                            <label for="patient-name">Full Name</label>
+                            <input type="text" id="patient-name" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="patient-email">Email Address</label>
+                            <input type="email" id="patient-email" required placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="patient-condition">Medical Condition</label>
+                            <label for="patient-condition">Mental Health Condition</label>
+<select id="patient-condition" required>
+    <option value="">Select your condition</option>
+    <option value="depression">Depression</option>
+    <option value="anxiety">Anxiety Disorders</option>
+    <option value="bipolar">Bipolar Disorder</option>
+    <option value="ptsd">Post-Traumatic Stress Disorder (PTSD)</option>
+    <option value="ocd">Obsessive-Compulsive Disorder (OCD)</option>
+    <option value="adhd">Attention-Deficit/Hyperactivity Disorder (ADHD)</option>
+    <option value="eating-disorder">Eating Disorders</option>
+    <option value="schizophrenia">Schizophrenia</option>
+    <option value="substance-abuse">Substance Use Disorder</option>
+    <option value="grief">Grief or Trauma</option>
+    <option value="sleep-disorder">Sleep Disorder (e.g., Insomnia)</option>
+    <option value="other">Other Mental Health Condition</option>
+</select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="patient-doctor">Current Doctor/Nurse</label>
+                            <input type="text" id="patient-doctor" required placeholder="Enter your doctor's name">
+                        </div>
+                        <div class="form-group">
+                            <label for="patient-hospital">Medical Facility</label>
+                            <input type="text" id="patient-hospital" required placeholder="Enter hospital/clinic name">
+                        </div>
+                        <div class="form-group">
+                            <label for="patient-message">Additional Information</label>
+                            <textarea id="patient-message" rows="3" placeholder="Any additional information you'd like to share"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="signup-button patient-button" id="submit-patient">Register as Patient</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="doctor-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Medical Professional Registration</h2>
+                    <button class="close-button">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="doctor-form">
+                        <div class="form-group">
+                            <label for="doctor-name">Full Name</label>
+                            <input type="text" id="doctor-name" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="doctor-email">Professional Email</label>
+                            <input type="email" id="doctor-email" required placeholder="Enter your professional email">
+                        </div>
+                        <div class="form-group">
+                            <label for="doctor-specialty">Medical Specialty</label>
+                             <select id="doctor-specialty" required>
+                                <option value="">Select your specialty</option>
+                                  <option value="psychiatrist">Psychiatrist</option>
+                                  <option value="clinical-psychologist">Clinical Psychologist</option>
+                                  <option value="counselor">Mental Health Counselor</option>
+                                  <option value="therapist">Psychotherapist</option>
+                                  <option value="social-worker">Licensed Clinical Social Worker (LCSW)</option>
+                                  <option value="addiction-specialist">Addiction Specialist</option>
+                                 <option value="child-psychologist">Child & Adolescent Psychologist</option>
+                                  <option value="marriage-family-therapist">Marriage & Family Therapist</option>
+                                 <option value="behavioral-therapist">Behavioral Therapist</option>
+                                 <option value="researcher">Mental Health Researcher</option>
+                                    <option value="other">Other Mental Health Professional</option>
+                                </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="doctor-institution">Medical Institution</label>
+                            <input type="text" id="doctor-institution" required placeholder="Enter your hospital/clinic/university">
+                        </div>
+                        <div class="form-group">
+                            <label for="doctor-interest">Area of Interest</label>
+                           <select id="doctor-interest" required>
+    <option value="">Select area of interest</option>
+    <option value="anxiety">Anxiety Disorders</option>
+    <option value="depression">Depression Therapy</option>
+    <option value="bipolar">Bipolar Disorder Management</option>
+    <option value="ptsd">PTSD Treatment</option>
+    <option value="ocd">Obsessive-Compulsive Disorder (OCD)</option>
+    <option value="adhd">ADHD Support</option>
+    <option value="eating-disorders">Eating Disorder Therapy</option>
+    <option value="schizophrenia">Schizophrenia Treatment</option>
+    <option value="substance-abuse">Substance Abuse Counseling</option>
+    <option value="grief-therapy">Grief & Trauma Therapy</option>
+    <option value="child-psych">Child & Adolescent Mental Health</option>
+    <option value="couples-therapy">Couples & Relationship Counseling</option>
+    <option value="stress-management">Stress Management</option>
+    <option value="sleep-disorders">Sleep Disorders Therapy</option>
+    <option value="mindfulness">Mindfulness & CBT Programs</option>
+</select>
+
+
+                        </div>
+                        <div class="form-group">
+                            <label for="doctor-message">Research/Clinical Goals</label>
+                            <textarea id="doctor-message" rows="3" placeholder="Describe your research or clinical goals"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="signup-button doctor-button" id="submit-doctor">Register as Medical Professional</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chat Popup -->
+    <div class="chat-popup">
+        <button class="chat-toggle" id="chat-toggle">💬</button>
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header">
+                <h2 class="chat-title">Mind Link AI Assistant</h2>
+                <button class="chat-close" id="chat-close">&times;</button>
+            </div>
+            <div class="chat-container" id="chat-container">
+                <div class="message ai-message">
+                    Hello! I'm your Mind Link AI assistant. How can I help you today?
+                </div>
+            </div>
+            <div class="typing-indicator" id="typing-indicator">
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+            <form class="chat-input-container" id="chat-form">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type your message here..." autocomplete="off">
+                <button type="submit" class="send-button">Send</button>
+            </form>
+        </div>
+    </div>
+
+<script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                themeToggle.textContent = '☀️';
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                themeToggle.textContent = '🌙';
+            }
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('info-modal');
+        const patientModal = document.getElementById('patient-modal');
+        const doctorModal = document.getElementById('doctor-modal');
+        const closeButtons = document.querySelectorAll('.close-button');
+        const modalTitle = document.getElementById('modal-title');
+        const modalSubtitle = document.getElementById('modal-subtitle');
+        const modalContent = document.getElementById('modal-content');
+
+        // Portal modals
+        const patientFeatureModal = document.getElementById('patient-feature-modal');
+        const doctorFeatureModal = document.getElementById('doctor-feature-modal');
+        const patientModalTitle = document.getElementById('patient-modal-title');
+        const patientModalSubtitle = document.getElementById('patient-modal-subtitle');
+        const patientModalContent = document.getElementById('patient-modal-content');
+        const doctorModalTitle = document.getElementById('doctor-modal-title');
+        const doctorModalSubtitle = document.getElementById('doctor-modal-subtitle');
+        const doctorModalContent = document.getElementById('doctor-modal-content');
+
+        // Chat functionality
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatWindow = document.getElementById('chat-window');
+        const chatClose = document.getElementById('chat-close');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatContainer = document.getElementById('chat-container');
+        const typingIndicator = document.getElementById('typing-indicator');
+
+        // Mood tracking
+        let selectedMood = '';
+        const moodOptions = document.querySelectorAll('.mood-option');
+        const selectedMoodInput = document.getElementById('selected-mood');
+        const moodForm = document.getElementById('mood-form');
+        const historyContainer = document.getElementById('history-container');
+
+       // Application details data
+const appDetails = {
+  "stress-management": {
+    title: "Stress Management",
+    subtitle: "Real-Time Stress Monitoring and Relief",
+    content: "Our advanced biofeedback technology tracks physiological signals like heart rate variability and skin conductance to monitor stress levels in real time. Personalized relaxation protocols, including guided breathing and neural stimulation, help users reduce stress and regain calm during daily challenges."
+  },
+  "emotional-support": {
+    title: "Emotional Support",
+    subtitle: "AI-Powered Chatbots and Mindfulness",
+    content: "Combining natural language processing with cognitive behavioral therapy techniques, our AI chatbots provide empathetic emotional support 24/7. Integrated mindfulness exercises and mood tracking empower users to better manage anxiety, depression, and emotional fluctuations."
+  },
+  meditation: {
+    title: "Meditation & Mindfulness",
+    subtitle: "Immersive Guided Practices",
+    content: "Our platform offers immersive VR-guided meditation and mindfulness sessions tailored to individual needs. By engaging multiple senses and tracking brainwave activity, we enhance focus and promote lasting improvements in mental wellbeing."
+  },
+  anxiety: {
+    title: "Anxiety Management",
+    subtitle: "Personalized Neural Feedback Therapy",
+    content: "Using wearable EEG devices, our system detects early signs of anxiety and delivers targeted neurofeedback training. This helps users recognize triggers and develop coping strategies, significantly reducing anxiety symptoms over time."
+  },
+  depression: {
+    title: "Depression Therapy",
+    subtitle: "Non-Invasive Brain Stimulation",
+    content: "Our cutting-edge transcranial magnetic stimulation (TMS) technology targets mood-regulating brain regions with precision. Personalized stimulation patterns improve mood and cognitive function, offering an effective treatment for patients with depression."
+  },
+  sleep: {
+    title: "Sleep Improvement",
+    subtitle: "Neural Modulation for Better Sleep",
+    content: "By analyzing sleep patterns and brainwave activity, our system delivers gentle neural stimulation to promote deep restorative sleep. Users experience faster sleep onset, reduced insomnia, and improved overall sleep quality."
+  },
+  ptsd: {
+    title: "PTSD Treatment",
+    subtitle: "Targeted Neurotherapy and Counseling",
+    content: "Combining neural modulation with guided psychotherapy, our PTSD treatment targets traumatic memory circuits to reduce symptoms. This integrated approach supports trauma processing and fosters long-term recovery."
+  }
+};
+
+
+        // Patient portal feature details
+       const patientFeatureDetails = {
+  progress: {
+    title: "Mental Health Progress Tracking",
+    subtitle: "Monitor Your Emotional Wellbeing",
+    content: "Our interactive dashboard helps you track mood patterns, therapy milestones, and symptom improvements over time. Visualize your mental health journey with graphs and receive AI-driven insights to tailor your self-care and treatment plans for optimal outcomes."
+  },
+  appointments: {
+    title: "Therapy Appointment Management",
+    subtitle: "Easy Scheduling and Reminders",
+    content: "Book and manage therapy sessions with your mental health professionals effortlessly. Get automated reminders, access virtual counseling links, and sync appointments with your personal calendar to maintain consistent care without hassle."
+  },
+  resources: {
+    title: "Mental Health Resources",
+    subtitle: "Empower Yourself with Knowledge",
+    content: "Explore a curated library of articles, videos, self-help exercises, and guided meditations focused on anxiety, depression, stress, and overall emotional wellness. Content is updated regularly by mental health experts to support your recovery and growth."
+  },
+  community: {
+    title: "Supportive Peer Community",
+    subtitle: "Connect and Share Your Journey",
+    content: "Join a compassionate and secure online community to share experiences, exchange coping strategies, and receive encouragement from others facing similar mental health challenges. Moderated to maintain a safe, stigma-free environment."
+  },
+  records: {
+    title: "Confidential Wellness Records",
+    subtitle: "Your Mental Health History at Your Fingertips",
+    content: "Securely store therapy notes, mood journals, medication logs, and assessments. Easily share relevant information with your care team or trusted family members, while keeping your privacy protected with state-of-the-art encryption."
+  },
+  notifications: {
+    title: "Personalized Mental Health Alerts",
+    subtitle: "Stay on Track with Your Wellness",
+    content: "Receive reminders for therapy sessions, medication, mindfulness exercises, and self-care activities. Customize alerts to fit your lifestyle via email, SMS, or in-app notifications, along with motivational tips and mood check-in prompts."
+  }
+};
+
+
+        // Doctor portal feature details
+        const doctorFeatureDetails = {
+    "patient-data": {
+        title: "Comprehensive Mental Health Profiles",
+        subtitle: "Holistic Patient Insights at Your Fingertips",
+        content: "Access detailed mental health profiles including psychological history, therapy notes, mood tracking data, medication adherence, and risk assessments. Our platform provides real-time updates and visualizations to support clinical decision-making and personalized care planning."
+    },
+    diagnostics: {
+        title: "Psychiatric Diagnostic Tools",
+        subtitle: "AI-Powered Mental Health Evaluation",
+        content: "Use AI-driven tools for psychological assessments, symptom pattern analysis, and diagnosis support. Integrate DSM-5 criteria with structured interviews, self-report inventories, and behavioral data to accurately diagnose conditions like depression, anxiety, bipolar disorder, PTSD, and more."
+    },
+    collaboration: {
+        title: "Professional Collaboration Network",
+        subtitle: "Connect, Consult, and Co-Treat",
+        content: "Collaborate with mental health professionals around the world. Share treatment protocols, participate in peer reviews, and co-manage complex cases. Utilize secure messaging, shared care plans, and real-time discussion forums to enhance interdisciplinary care."
+    },
+    monitoring: {
+        title: "Remote Mental Health Monitoring",
+        subtitle: "Real-Time Behavioral Insights",
+        content: "Track patient well-being through daily mood check-ins, journaling behavior, and therapy engagement. Receive alerts for signs of relapse, high-risk behavior, or treatment non-compliance. Adjust interventions proactively based on real-time emotional and behavioral data."
+    },
+    trials: {
+        title: "Behavioral Research & Clinical Trials",
+        subtitle: "Drive Innovation in Mental Health",
+        content: "Manage participation in clinical trials on emerging therapies such as psychedelic-assisted treatment, neurofeedback, or digital CBT. Enroll patients, collect outcomes, and collaborate with academic institutions to advance the science of mental health treatment."
+    },
+    updates: {
+        title: "Mental Health Research & Guidelines",
+        subtitle: "Stay Informed with the Latest Evidence",
+        content: "Receive curated updates on psychiatric research, evidence-based practices, and evolving clinical guidelines. Get access to professional development courses, expert webinars, and summaries from top journals to stay at the forefront of mental health care."
+    }
+};
+
+
+        // AI Responses
+        const aiResponses = {
+            greeting: [
+                "Hello! How can I assist you today?",
+                "Hi there! What can I help you with?",
+                "Greetings! How may I support you?",
+                "Hello! I'm here to help. What do you need?"
+            ],
+            howAreYou: [
+                "I'm doing well, thank you for asking! How are you feeling today?",
+                "I'm here and ready to help! How are you doing?",
+                "I'm functioning optimally! How can I assist you?",
+                "I'm great! How are you feeling today?"
+            ],
+          treatment: [
+  "Your mental wellness plan is tailored to support your emotional growth. Keep up with your therapy sessions and share your experiences with your care team.",
+  "Progress in mental health can fluctuate. Consistency and open communication with your therapist are key to your wellbeing.",
+  "Our adaptive mental health platform evolves with your needs. Your feedback helps us enhance your personalized care.",
+  "Every mental health journey is unique. Celebrate small victories and don’t hesitate to ask for help when you need it."
+],
+appointment: [
+  "Schedule your therapy sessions easily in the Appointments section. You can also send secure messages to your mental health providers.",
+  "Your next therapy appointment is on [date]. Prepare any thoughts or questions to discuss with your counselor.",
+  "If you need to reschedule, contact your therapist directly through the secure messaging system in your portal.",
+  "Virtual therapy sessions are available for many appointments. Check your session details for connection instructions."
+],
+mood: [
+  "Thank you for sharing how you’re feeling. Tracking your mood helps us understand your emotional wellbeing and adjust your support.",
+  "It’s normal to experience ups and downs. Your feelings are important, and support is always available when you need it.",
+  "Your emotional health is just as vital as your physical health. Reach out to your support network whenever you feel the need.",
+  "Expressing your emotions is an important part of healing. Would you like to explore more about your feelings today?"
+],
+resources: [
+  "Explore our curated mental health resources designed to empower your recovery and resilience.",
+  "Our library includes expert articles, guided exercises, and videos to support your journey toward emotional wellbeing.",
+  "Have questions? The FAQ section covers common topics to help you better understand your mental health care.",
+  "We continuously update our resources with the latest research and tools to keep you informed and supported."
+],
+support: [
+  "Join the Support Community to connect with others on similar mental health journeys. Sharing can bring comfort and strength.",
+  "Peer support has been shown to boost recovery and reduce isolation. Consider joining group discussions and forums.",
+  "Feeling overwhelmed? Remember, you are not alone. Reach out to your support circle or care providers.",
+  "Connecting with those who understand your experiences can offer valuable encouragement and insight."
+],
+default: [
+  "I’m here to help with any questions about your mental health care, appointments, or emotional wellbeing. What would you like to know?",
+  "Feel free to ask about your wellness plan or any resources you need. I’m here to support you.",
+  "If you have concerns or need guidance, I’m happy to help point you in the right direction.",
+  "Please remember, I’m an AI assistant. For urgent mental health support, contact your healthcare professional directly."
+]
+
+        };
+
+        // Navigation functionality
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('data-target');
+                const section = document.getElementById(target);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Button event listeners
+        document.getElementById('explore-btn').addEventListener('click', function() {
+            document.getElementById('research').scrollIntoView({ behavior: 'smooth' });
+        });
+
+       document.getElementById('tech-details-btn').addEventListener('click', function() {
+    modalTitle.textContent = "Technical Specifications";
+    modalSubtitle.textContent = "AI-Powered Mental Health Platform";
+    modalContent.textContent = "Our mental health platform is powered by a secure, HIPAA-compliant cloud infrastructure and utilizes advanced machine learning algorithms for personalized care. Real-time data from mood tracking, therapy sessions, and user interactions is processed using a neural network model trained on anonymized clinical data. The system features emotion recognition via natural language processing (NLP), adaptive recommendation engines, and predictive analytics with under 10ms response latency. End-to-end encryption protects all data transmissions, and the platform is accessible across web and mobile with offline functionality.";
+    modal.style.display = 'flex';
+});
+
+
+        document.getElementById('contact-btn').addEventListener('click', function() {
+            modalTitle.textContent = "Contact Us";
+            modalSubtitle.textContent = "Get in Touch with Our Medical Team";
+            modalContent.textContent = "For research collaborations, clinical trials, or medical inquiries, please contact our team at: research@mindlink-medical.com or call +1 (555) 123-4567. Our medical advisory board is available for consultations Monday through Friday, 9AM to 5PM EST. For urgent medical matters, please contact your local emergency services first.";
+            modal.style.display = 'flex';
+        });
+
+        // Signup buttons
+        document.getElementById('patient-signup').addEventListener('click', function() {
+            patientModal.style.display = 'flex';
+        });
+
+        document.getElementById('doctor-signup').addEventListener('click', function() {
+            doctorModal.style.display = 'flex';
+        });
+
+        // Learn more buttons for user sections
+        document.getElementById('patient-learn-more').addEventListener('click', function() {
+            modalTitle.textContent = "Patient Portal";
+            modalSubtitle.textContent = "Your Journey to Recovery";
+            modalContent.textContent = "The Mind Link Patient Portal provides you with personalized access to cutting-edge neurological treatments. Track your therapy progress, communicate with your medical team, access educational resources about your condition, and connect with support communities. Our secure platform ensures your privacy while giving you the tools to take an active role in your treatment journey.";
+            modal.style.display = 'flex';
+        });
+
+        document.getElementById('doctor-learn-more').addEventListener('click', function() {
+            modalTitle.textContent = "Doctor Portal";
+            modalSubtitle.textContent = "Advanced Tools for Medical Professionals";
+            modalContent.textContent = "The Mind Link Doctor Portal gives medical professionals access to our advanced diagnostic tools, real-time patient monitoring, and collaborative research platforms. Access detailed patient data, utilize our AI-enhanced analysis tools, collaborate with specialists worldwide, and stay updated on the latest research developments. Our platform is designed to enhance your clinical decision-making and improve patient outcomes.";
+            modal.style.display = 'flex';
+        });
+
+        // Learn more buttons for applications
+        document.querySelectorAll('.learn-more').forEach(button => {
+            button.addEventListener('click', function() {
+                const app = this.getAttribute('data-app');
+                const details = appDetails[app];
+                
+                if (details) {
+                    modalTitle.textContent = details.title;
+                    modalSubtitle.textContent = details.subtitle;
+                    modalContent.textContent = details.content;
+                    modal.style.display = 'flex';
+                }
+            });
+        });
+
+        // Close modals
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                modal.style.display = 'none';
+                patientModal.style.display = 'none';
+                doctorModal.style.display = 'none';
+            });
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+            if (event.target === patientModal) {
+                patientModal.style.display = 'none';
+            }
+            if (event.target === doctorModal) {
+                doctorModal.style.display = 'none';
+            }
+            if (event.target === patientFeatureModal) {
+                patientFeatureModal.style.display = 'none';
+            }
+            if (event.target === doctorFeatureModal) {
+                doctorFeatureModal.style.display = 'none';
+            }
+        });
+
+        // Form submissions
+        document.getElementById('submit-patient').addEventListener('click', function() {
+            const name = document.getElementById('patient-name').value;
+            const email = document.getElementById('patient-email').value;
+            const condition = document.getElementById('patient-condition').value;
+            
+            if (name && email && condition) {
+                alert(`Welcome, ${name}! You have successfully logged into the Patient Portal.`);
+                document.getElementById('main-content').style.display = 'none';
+                document.getElementById('patient-portal').style.display = 'block';
+                patientModal.style.display = 'none';
+                document.getElementById('patient-form').reset();
+                
+                // Load mood history
+                loadMoodHistory();
+                
+                // Show chat popup after login
+                setTimeout(() => {
+                    chatWindow.style.display = 'flex';
+                }, 1000);
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+
+        document.getElementById('submit-doctor').addEventListener('click', function() {
+            const name = document.getElementById('doctor-name').value;
+            const email = document.getElementById('doctor-email').value;
+            const specialty = document.getElementById('doctor-specialty').value;
+            
+            if (name && email && specialty) {
+                alert(`Welcome, Dr. ${name}! You have successfully logged into the Medical Professional Portal.`);
+                document.getElementById('main-content').style.display = 'none';
+                document.getElementById('doctor-portal').style.display = 'block';
+                doctorModal.style.display = 'none';
+                document.getElementById('doctor-form').reset();
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+
+        // Logout functionality
+        document.getElementById('patient-logout').addEventListener('click', function() {
+            document.getElementById('patient-portal').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            chatWindow.style.display = 'none';
+            alert('You have been logged out of the Patient Portal.');
+        });
+
+        document.getElementById('doctor-logout').addEventListener('click', function() {
+            document.getElementById('doctor-portal').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            alert('You have been logged out of the Medical Professional Portal.');
+        });
+
+        // Portal feature cards
+        document.querySelectorAll('#patient-portal .portal-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const feature = this.getAttribute('data-feature');
+                const details = patientFeatureDetails[feature];
+                
+                if (details) {
+                    patientModalTitle.textContent = details.title;
+                    patientModalSubtitle.textContent = details.subtitle;
+                    patientModalContent.textContent = details.content;
+                    patientFeatureModal.style.display = 'flex';
+                }
+            });
+        });
+
+        document.querySelectorAll('#doctor-portal .portal-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const feature = this.getAttribute('data-feature');
+                const details = doctorFeatureDetails[feature];
+                
+                if (details) {
+                    doctorModalTitle.textContent = details.title;
+                    doctorModalSubtitle.textContent = details.subtitle;
+                    doctorModalContent.textContent = details.content;
+                    doctorFeatureModal.style.display = 'flex';
+                }
+            });
+        });
+
+        // Portal modal close buttons
+        document.querySelectorAll('.portal-close-button').forEach(button => {
+            button.addEventListener('click', function() {
+                patientFeatureModal.style.display = 'none';
+                doctorFeatureModal.style.display = 'none';
+            });
+        });
+
+        // Portal modal back buttons
+        document.getElementById('patient-modal-back').addEventListener('click', function() {
+            patientFeatureModal.style.display = 'none';
+        });
+
+        document.getElementById('doctor-modal-back').addEventListener('click', function() {
+            doctorFeatureModal.style.display = 'none';
+        });
+
+        // Mood tracking functionality
+        moodOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                moodOptions.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Set selected mood value
+                selectedMood = this.getAttribute('data-mood');
+                selectedMoodInput.value = selectedMood;
+            });
+        });
+
+        moodForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!selectedMood) {
+                alert('Please select how you are feeling today.');
+                return;
+            }
+            
+            const thoughts = document.getElementById('thoughts').value;
+            const date = new Date().toLocaleString();
+            
+            // Create mood entry
+            const moodEntry = {
+                date: date,
+                mood: selectedMood,
+                thoughts: thoughts
+            };
+            
+            // Save to "local storage" (in this case, just in memory for demo)
+            saveMoodEntry(moodEntry);
+            
+            // Reset form
+            moodOptions.forEach(opt => opt.classList.remove('selected'));
+            document.getElementById('thoughts').value = '';
+            selectedMood = '';
+            selectedMoodInput.value = '';
+            
+            alert('Thank you for sharing how you feel today! Your mood has been recorded.');
+            
+            // Reload mood history
+            loadMoodHistory();
+        });
+
+        // Mood history functions
+        let moodHistory = [];
+
+        function saveMoodEntry(entry) {
+            moodHistory.unshift(entry); // Add to beginning of array
+            // Keep only last 10 entries
+            if (moodHistory.length > 10) {
+                moodHistory = moodHistory.slice(0, 10);
+            }
+        }
+
+        function loadMoodHistory() {
+            historyContainer.innerHTML = '';
+            
+            if (moodHistory.length === 0) {
+                historyContainer.innerHTML = '<p>No mood entries yet. Share how you feel today!</p>';
+                return;
+            }
+            
+            moodHistory.forEach(entry => {
+                const moodIcons = {
+                    'excellent': '😊',
+                    'good': '🙂',
+                    'okay': '😐',
+                    'poor': '🙁',
+                    'bad': '😞'
+                };
+                
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div class="history-date">${entry.date}
+                        ${moodIcons[entry.mood]} Feeling ${entry.mood.charAt(0).toUpperCase() + entry.mood.slice(1)}
+
+                    ${entry.thoughts ? `<div class="history-thoughts">${entry.thoughts}</div>` : ''}
+                `;
+                
+                historyContainer.appendChild(historyItem);
+            });
+        }
+
+        // AI Chat functionality
+        chatToggle.addEventListener('click', function() {
+            chatWindow.style.display = 'flex';
+        });
+
+        chatClose.addEventListener('click', function() {
+            chatWindow.style.display = 'none';
+        });
+
+        chatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const message = chatInput.value.trim();
+            if (message) {
+                // Add user message to chat
+                addMessageToChat(message, 'user');
+                
+                // Clear input
+                chatInput.value = '';
+                
+                // Show typing indicator
+                typingIndicator.style.display = 'flex';
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                // Simulate AI thinking time
+                setTimeout(() => {
+                    // Hide typing indicator
+                    typingIndicator.style.display = 'none';
+                    
+                    // Get AI response
+                    const aiResponse = generateAIResponse(message);
+                    
+                    // Add AI response to chat
+                    addMessageToChat(aiResponse, 'ai');
+                }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+            }
+        });
+
+        function addMessageToChat(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(sender + '-message');
+            messageElement.textContent = message;
+            
+            chatContainer.appendChild(messageElement);
+            
+            // Scroll to bottom
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function generateAIResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            
+            // Check for specific keywords to provide relevant responses
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                return aiResponses.greeting[Math.floor(Math.random() * aiResponses.greeting.length)];
+            }
+            
+            if (lowerMessage.includes('how are you') || lowerMessage.includes('how do you feel')) {
+                return aiResponses.howAreYou[Math.floor(Math.random() * aiResponses.howAreYou.length)];
+            }
+            
+            if (lowerMessage.includes('treatment') || lowerMessage.includes('therapy') || lowerMessage.includes('recovery')) {
+                return aiResponses.treatment[Math.floor(Math.random() * aiResponses.treatment.length)];
+            }
+            
+            if (lowerMessage.includes('appointment') || lowerMessage.includes('schedule') || lowerMessage.includes('meeting')) {
+                return aiResponses.appointment[Math.floor(Math.random() * aiResponses.appointment.length)];
+            }
+            
+            if (lowerMessage.includes('feel') || lowerMessage.includes('mood') || lowerMessage.includes('sad') || lowerMessage.includes('happy') || lowerMessage.includes('angry')) {
+                return aiResponses.mood[Math.floor(Math.random() * aiResponses.mood.length)];
+            }
+            
+            if (lowerMessage.includes('resource') || lowerMessage.includes('learn') || lowerMessage.includes('information')) {
+                return aiResponses.resources[Math.floor(Math.random() * aiResponses.resources.length)];
+            }
+            
+            if (lowerMessage.includes('support') || lowerMessage.includes('community') || lowerMessage.includes('help')) {
+                return aiResponses.support[Math.floor(Math.random() * aiResponses.support.length)];
+            }
+            
+            // Default response if no keywords match
+            return aiResponses.default[Math.floor(Math.random() * aiResponses.default.length)];
+        }
+
+        // Simple animation for feature cards on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card, .app-card, .user-section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            featureCards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    
+
+        
+    </script>
+    
+</body>
+</html>

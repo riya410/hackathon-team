@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MindLinkU - Login Portal</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #89f7fe, #66a6ff);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .auth-box {
+      background: #fff;
+      padding: 30px 25px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 350px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    input:focus {
+      border-color: #66a6ff;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #66a6ff;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #5593ee;
+    }
+
+    .toggle {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .toggle a {
+      color: #66a6ff;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .message {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .success {
+      color: green;
+    }
+
+    #dashboard {
+      display: none;
+      text-align: center;
+    }
+
+    #logoutBtn {
+      margin-top: 20px;
+      background-color: #f44336;
+    }
+
+    #logoutBtn:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-box" id="authBox">
+    <h2 id="formTitle">Login to MindLinkU</h2>
+
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="handleAuth()">
+        <a href="index4.html">Login</a></button>
+
+    <p class="message" id="message"></p>
+
+    <div class="toggle">
+      <span id="toggleText">New user? <a onclick="switchMode()">Register here</a></span>
+    </div>
+  </div>
+
+  <div class="auth-box" id="dashboard">
+    <h2>Welcome to MindLinkU 🎉</h2>
+    <p id="welcomeUser">Your mental wellness hub.</p>
+    <button id="logoutBtn" onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    let isLogin = true;
+
+    function switchMode() {
+      isLogin = !isLogin;
+      document.getElementById("formTitle").innerText = isLogin ? "Login to MindLinkU" : "Register to MindLinkU";
+      document.querySelector("button").innerText = isLogin ? "Login" : "Register";
+      document.getElementById("toggleText").innerHTML = isLogin
+        ? `New user? <a onclick="switchMode()">Register here</a>`
+        : `Already registered? <a onclick="switchMode()">Login here</a>`;
+      document.getElementById("message").textContent = "";
+    }
+
+    function handleAuth() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const message = document.getElementById("message");
+
+      if (!username || !password) {
+        message.textContent = "Please fill in all fields.";
+        message.className = "message error";
+        return;
+      }
+
+      const storedUser = localStorage.getItem("mindlinkuUser");
+      const storedPass = localStorage.getItem("mindlinkuPass");
+
+      if (isLogin) {
+        if (username === storedUser && password === storedPass) {
+          message.textContent = "Login successful!";
+          message.className = "message success";
+          setTimeout(() => showDashboard(username), 800);
+        } else {
+          message.textContent = "Invalid credentials.";
+          message.className = "message error";
+        }
+      } else {
+        localStorage.setItem("mindlinkuUser", username);
+        localStorage.setItem("mindlinkuPass", password);
+        message.textContent = "Registration successful! You can now log in.";
+        message.className = "message success";
+        setTimeout(() => switchMode(), 1200);
+      }
+    }
+
+    function showDashboard(user) {
+      document.getElementById("authBox").style.display = "none";
+      const dashboard = document.getElementById("dashboard");
+      document.getElementById("welcomeUser").innerText = `Hello, ${user}! You’re logged in.`;
+      dashboard.style.display = "block";
+    }
+
+    function logout() {
+      document.getElementById("dashboard").style.display = "none";
+      document.getElementById("authBox").style.display = "block";
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+      document.getElementById("message").textContent = "";
+    }
+  </script>
+</body>
+</html>

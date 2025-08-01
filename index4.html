@@ -1,0 +1,2421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindLink - Complete Mental Health Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo h2 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            min-height: calc(100vh - 80px);
+            padding: 2rem 0;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 4rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #4a5568;
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #718096;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mental-health-icon {
+            font-size: 15rem;
+            opacity: 0.8;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background-color: #cbd5e0;
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 1.1rem;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            background-color: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2d3748;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        .feature-card p {
+            color: #718096;
+            line-height: 1.6;
+        }
+
+        /* Assessment Styles */
+        .assessment-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .assessment-header h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            margin: 2rem 0 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 5%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .assessment-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .question-container {
+            margin-bottom: 2rem;
+        }
+
+        .question {
+            margin-bottom: 2rem;
+        }
+
+        .question h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background-color: #f7fafc;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 0.75rem;
+            transform: scale(1.2);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background-color: #edf2f7;
+        }
+
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        /* Results Styles */
+        .results-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .results-container h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 2rem;
+        }
+
+        .result-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-card h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        .score-display {
+            font-size: 1.5rem;
+            margin: 1.5rem 0;
+            color: #4a5568;
+        }
+
+        .score-value {
+            font-weight: bold;
+            font-size: 2rem;
+            color: #667eea;
+        }
+
+        .recommendations {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .recommendations h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .recommendations ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .recommendations li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .recommendations li:last-child {
+            border-bottom: none;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* Solutions Styles */
+        .solutions-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .solutions-header h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .solutions-content {
+            margin-bottom: 3rem;
+        }
+
+        .solution-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .solution-category h2 {
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .solution-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .solution-item {
+            padding: 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .solution-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .solution-item h3 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-item p {
+            color: #718096;
+            margin-bottom: 1rem;
+        }
+
+        .general-resources h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 2rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .resource-card h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .resource-card p {
+            color: #718096;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Therapists Styles */
+        .therapists-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .therapists-header h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .therapists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .therapist-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .therapist-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .therapist-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1rem auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .therapist-card h3 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .therapist-specialization {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .therapist-info {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .therapist-info p {
+            margin-bottom: 0.5rem;
+            color: #718096;
+        }
+
+        .therapist-info strong {
+            color: #2d3748;
+        }
+
+        /* Booking Form */
+        .booking-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+
+        .booking-section h2 {
+            color: #2d3748;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .booking-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* Emergency Section */
+        .emergency-section {
+            background: #fed7d7;
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 5px solid #e53e3e;
+        }
+
+        .emergency-section h2 {
+            color: #c53030;
+            margin-bottom: 1rem;
+        }
+
+        .emergency-section p {
+            color: #742a2a;
+            margin-bottom: 1.5rem;
+        }
+
+        .emergency-contacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .emergency-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #feb2b2;
+        }
+
+        .emergency-card h3 {
+            color: #c53030;
+            margin-bottom: 1rem;
+        }
+
+        .emergency-card p {
+            color: #742a2a;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 0;
+            border-radius: 12px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #718096;
+        }
+
+        .close-btn:hover {
+            color: #2d3748;
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            text-align: center;
+            min-width: 300px;
+        }
+
+        .player-content h3 {
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        .player-controls {
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Severity-specific styles */
+        .severity-normal {
+            border-left: 5px solid #48bb78;
+            background-color: #f0fff4;
+        }
+
+        .severity-mild {
+            border-left: 5px solid #ed8936;
+            background-color: #fffaf0;
+        }
+
+        .severity-moderate {
+            border-left: 5px solid #ed8936;
+            background-color: #fffaf0;
+        }
+
+        .severity-severe {
+            border-left: 5px solid #e53e3e;
+            background-color: #fff5f5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .mental-health-icon {
+                font-size: 8rem;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features-grid,
+            .resources-grid,
+            .therapists-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-buttons {
+                flex-direction: column;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .assessment-form,
+            .result-card,
+            .solution-category {
+                padding: 1.5rem;
+            }
+
+            .btn {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        /* Additional styles for interactive elements */
+        .breathing-exercise ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .breathing-timer {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .timer-circle {
+            width: 120px;
+            height: 120px;
+            border: 4px solid #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .meditation-steps p {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: #f7fafc;
+            border-radius: 4px;
+        }
+
+        .meditation-timer {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .timer-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .articles-list, .video-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .article-item, .video-item {
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .article-item h4, .video-item h4 {
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+
+        .article-item p, .video-item p {
+            margin-bottom: 1rem;
+            color: #718096;
+        }
+
+        .crisis-contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .emergency-warning {
+            background: #fed7d7;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #e53e3e;
+        }
+
+        .emergency-warning p {
+            color: #c53030;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .contact-item {
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #f7fafc;
+        }
+
+        .contact-item h4 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p {
+            margin: 0.25rem 0;
+            color: #718096;
+        }
+
+        .contact-item strong {
+            color: #2d3748;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🧠 MindLink</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a class="nav-link active" onclick="showPage('home')">Home</a></li>
+                <li><a class="nav-link" onclick="showPage('assessment')">Assessment</a></li>
+                <li><a class="nav-link" onclick="showPage('results')">Results</a></li>
+                <li><a class="nav-link" onclick="showPage('solutions')">Solutions</a></li>
+                <li><a class="nav-link" onclick="showPage('therapists')">Therapists</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Welcome to MindLink</h1>
+                    <p class="hero-subtitle">Your Mental Health Companion</p>
+                    <p class="hero-description">
+                        Take control of your mental well-being with our comprehensive mood tracking, 
+                        personalized solutions, and professional support system.
+                    </p>
+                    <div class="hero-buttons">
+                        <button onclick="showPage('assessment')" class="btn btn-primary">Start Assessment</button>
+                        <button onclick="scrollToFeatures()" class="btn btn-secondary">Learn More</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="mental-health-icon">🌱</div>
+                </div>
+            </section>
+
+            <section id="features" class="features">
+                <div class="container">
+                    <h2>How MindLink Helps You</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Mood Assessment</h3>
+                            <p>Complete a comprehensive 20-question assessment to understand your current mental state.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h3>Personalized Solutions</h3>
+                            <p>Receive tailored recommendations based on your assessment results and severity level.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">👨‍⚕️</div>
+                            <h3>Professional Support</h3>
+                            <p>Connect with qualified Nepali therapists when professional help is recommended.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💪</div>
+                            <h3>Self-Care Tools</h3>
+                            <p>Access exercises, motivational content, and wellness resources for daily support.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cta">
+                <div class="container">
+                    <h2>Ready to Start Your Mental Health Journey?</h2>
+                    <p>Take the first step towards better mental well-being today.</p>
+                    <button onclick="showPage('assessment')" class="btn btn-primary btn-large">Begin Assessment</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ASSESSMENT PAGE -->
+        <div id="assessment" class="page">
+            <div class="container">
+                <div class="assessment-header">
+                    <h1>Mental Health Assessment</h1>
+                    <p>Please answer the following questions honestly. This assessment will help us understand your current mental state and provide appropriate recommendations.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text">Question <span id="currentQuestion">1</span> of 20</p>
+                </div>
+
+                <form id="assessmentForm" class="assessment-form">
+                    <div class="question-container" id="questionContainer">
+                        <!-- Questions will be dynamically loaded here -->
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <button type="button" id="prevBtn" class="btn btn-secondary" style="display: none;">Previous</button>
+                        <button type="button" id="nextBtn" class="btn btn-primary">Next</button>
+                        <button type="submit" id="submitBtn" class="btn btn-primary" style="display: none;">Get Results</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- RESULTS PAGE -->
+        <div id="results" class="page">
+            <div class="container">
+                <div class="results-container">
+                    <h1>Your Assessment Results</h1>
+                    
+                    <div class="result-card" id="resultCard">
+                        <div class="result-icon" id="resultIcon">🌟</div>
+                        <h2 id="severityLevel">Loading...</h2>
+                        <p id="severityDescription">Analyzing your responses...</p>
+                        <div class="score-display">
+                            <span class="score-label">Your Score:</span>
+                            <span class="score-value" id="scoreValue">--</span>
+                            <span class="score-total">/ 60</span>
+                        </div>
+                    </div>
+
+                    <div class="recommendations" id="recommendations">
+                        <!-- Recommendations will be loaded here -->
+                    </div>
+
+                    <div class="action-buttons">
+                        <button onclick="showPage('solutions')" class="btn btn-primary" id="solutionsBtn">View Solutions</button>
+                        <button onclick="showPage('assessment')" class="btn btn-secondary">Retake Assessment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SOLUTIONS PAGE -->
+        <div id="solutions" class="page">
+            <div class="container">
+                <div class="solutions-header">
+                    <h1>Personalized Solutions</h1>
+                    <p id="solutionsIntro">Based on your assessment, here are personalized recommendations for your mental well-being.</p>
+                </div>
+
+                <div class="solutions-content" id="solutionsContent">
+                    <!-- Solutions will be dynamically loaded based on severity -->
+                </div>
+
+                <div class="general-resources">
+                    <h2>Additional Resources</h2>
+                    <div class="resources-grid">
+                        <div class="resource-card">
+                            <h3>🎵 Relaxing Music</h3>
+                            <p>Curated playlist for stress relief and relaxation</p>
+                            <button class="btn btn-small" onclick="playMusic()">Listen Now</button>
+                        </div>
+                        <div class="resource-card">
+                            <h3>📚 Mental Health Articles</h3>
+                            <p>Educational content about mental wellness</p>
+                            <button class="btn btn-small" onclick="showArticles()">Read Articles</button>
+                        </div>
+                        <div class="resource-card">
+                            <h3>🧘 Meditation Guide</h3>
+                            <p>Step-by-step meditation techniques</p>
+                            <button class="btn btn-small" onclick="startMeditation()">Start Meditation</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- THERAPISTS PAGE -->
+        <div id="therapists" class="page">
+            <div class="container">
+                <div class="therapists-header">
+                    <h1>Professional Mental Health Support</h1>
+                    <p>Connect with qualified Nepali therapists for professional mental health support.</p>
+                </div>
+
+                <div class="therapists-grid" id="therapistsGrid">
+                    <!-- Therapists will be loaded here -->
+                </div>
+
+                <div class="booking-section" id="bookingSection" style="display: none;">
+                    <h2>Book an Appointment</h2>
+                    <form id="bookingForm" class="booking-form">
+                        <div class="form-group">
+                            <label for="selectedTherapist">Selected Therapist:</label>
+                            <input type="text" id="selectedTherapist" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="patientName">Your Name:</label>
+                            <input type="text" id="patientName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="patientEmail">Email:</label>
+                            <input type="email" id="patientEmail" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="patientPhone">Phone Number:</label>
+                            <input type="tel" id="patientPhone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="appointmentDate">Preferred Date:</label>
+                            <input type="date" id="appointmentDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="appointmentTime">Preferred Time:</label>
+                            <select id="appointmentTime" required>
+                                <option value="">Select Time</option>
+                                <option value="09:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                                <option value="17:00">5:00 PM</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="sessionType">Session Type:</label>
+                            <select id="sessionType" required>
+                                <option value="">Select Session Type</option>
+                                <option value="online">Online Session</option>
+                                <option value="in-person">In-Person Session</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="concerns">Brief Description of Concerns:</label>
+                            <textarea id="concerns" rows="4" placeholder="Please describe what you'd like to discuss..."></textarea>
+                        </div>
+                        
+                        <div class="form-buttons">
+                            <button type="submit" class="btn btn-primary">Book Appointment</button>
+                            <button type="button" onclick="cancelBooking()" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="emergency-section">
+                    <h2>🚨 Emergency Support</h2>
+                    <p>If you're experiencing a mental health emergency, please contact:</p>
+                    <div class="emergency-contacts">
+                        <div class="emergency-card">
+                            <h3>Nepal Mental Health Helpline</h3>
+                            <p><strong>Phone:</strong> 1660-01-16600</p>
+                            <p><strong>Available:</strong> 24/7</p>
+                        </div>
+                        <div class="emergency-card">
+                            <h3>Transcultural Psychosocial Organization (TPO)</h3>
+                            <p><strong>Phone:</strong> 01-4102037</p>
+                            <p><strong>Available:</strong> 9 AM - 5 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Music Player Modal -->
+    <div id="musicPlayer" class="music-player" style="display: none;">
+        <div class="player-content">
+            <h3>Relaxing Music Player</h3>
+            <audio controls id="audioPlayer">
+                <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXr" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="player-controls">
+                <button onclick="closePlayer()" class="btn btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>✅ Appointment Booked Successfully!</h2>
+            <p>Your appointment has been scheduled. You will receive a confirmation email shortly.</p>
+            <div id="appointmentDetails"></div>
+            <button onclick="closeModal()" class="btn btn-primary">Close</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 MindLink. Supporting mental health in Nepal and beyond.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let currentQuestionIndex = 0;
+        const answers = {};
+        let selectedTherapist = null;
+
+        // Assessment Questions
+        const assessmentQuestions = [
+            {
+                id: 1,
+                question: "Over the last 2 weeks, how often have you been bothered by feeling down, depressed, or hopeless?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 2,
+                question: "Over the last 2 weeks, how often have you had little interest or pleasure in doing things?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 3,
+                question: "How often do you have trouble falling or staying asleep, or sleeping too much?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 4,
+                question: "How often do you feel tired or have little energy?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 5,
+                question: "How often do you have poor appetite or overeating?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 6,
+                question: "How often do you feel bad about yourself or that you are a failure?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 7,
+                question: "How often do you have trouble concentrating on things?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 8,
+                question: "How often do you feel nervous, anxious, or on edge?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 9,
+                question: "How often are you not able to stop or control worrying?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 10,
+                question: "How often do you worry too much about different things?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 11,
+                question: "How often do you have trouble relaxing?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 12,
+                question: "How often are you so restless that it is hard to sit still?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 13,
+                question: "How often do you become easily annoyed or irritable?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 14,
+                question: "How often do you feel afraid as if something awful might happen?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Several days", value: 1 },
+                    { text: "More than half the days", value: 2 },
+                    { text: "Nearly every day", value: 3 }
+                ]
+            },
+            {
+                id: 15,
+                question: "How satisfied are you with your personal relationships?",
+                options: [
+                    { text: "Very satisfied", value: 0 },
+                    { text: "Somewhat satisfied", value: 1 },
+                    { text: "Somewhat dissatisfied", value: 2 },
+                    { text: "Very dissatisfied", value: 3 }
+                ]
+            },
+            {
+                id: 16,
+                question: "How often do you feel overwhelmed by daily responsibilities?",
+                options: [
+                    { text: "Never", value: 0 },
+                    { text: "Sometimes", value: 1 },
+                    { text: "Often", value: 2 },
+                    { text: "Always", value: 3 }
+                ]
+            },
+            {
+                id: 17,
+                question: "How would you rate your overall stress level?",
+                options: [
+                    { text: "Very low", value: 0 },
+                    { text: "Low", value: 1 },
+                    { text: "High", value: 2 },
+                    { text: "Very high", value: 3 }
+                ]
+            },
+            {
+                id: 18,
+                question: "How often do you engage in activities you enjoy?",
+                options: [
+                    { text: "Very often", value: 0 },
+                    { text: "Sometimes", value: 1 },
+                    { text: "Rarely", value: 2 },
+                    { text: "Never", value: 3 }
+                ]
+            },
+            {
+                id: 19,
+                question: "How confident do you feel about handling life's challenges?",
+                options: [
+                    { text: "Very confident", value: 0 },
+                    { text: "Somewhat confident", value: 1 },
+                    { text: "Not very confident", value: 2 },
+                    { text: "Not confident at all", value: 3 }
+                ]
+            },
+            {
+                id: 20,
+                question: "How often do you feel hopeful about your future?",
+                options: [
+                    { text: "Very often", value: 0 },
+                    { text: "Sometimes", value: 1 },
+                    { text: "Rarely", value: 2 },
+                    { text: "Never", value: 3 }
+                ]
+            }
+        ];
+
+        // Therapists Data
+        const therapistsData = [
+            {
+                id: 1,
+                name: "Dr. Sita Sharma",
+                specialization: "Clinical Psychology",
+                experience: "8 years",
+                location: "Kathmandu",
+                languages: "Nepali, English, Hindi",
+                sessionTypes: ["Online", "In-Person"],
+                availability: "Mon-Fri: 9 AM - 5 PM",
+                fee: "NPR 2000-3000 per session",
+                education: "PhD in Clinical Psychology, Tribhuvan University",
+                avatar: "SS"
+            },
+            {
+                id: 2,
+                name: "Dr. Rajesh Thapa",
+                specialization: "Anxiety & Depression",
+                experience: "12 years",
+                location: "Pokhara",
+                languages: "Nepali, English",
+                sessionTypes: ["Online", "In-Person"],
+                availability: "Mon-Sat: 10 AM - 6 PM",
+                fee: "NPR 2500-3500 per session",
+                education: "MD Psychiatry, Institute of Medicine",
+                avatar: "RT"
+            },
+            {
+                id: 3,
+                name: "Dr. Kamala Poudel",
+                specialization: "Family Therapy",
+                experience: "10 years",
+                location: "Lalitpur",
+                languages: "Nepali, English, Newari",
+                sessionTypes: ["Online", "In-Person"],
+                availability: "Tue-Sun: 8 AM - 4 PM",
+                fee: "NPR 1800-2800 per session",
+                education: "MA in Counseling Psychology, Kathmandu University",
+                avatar: "KP"
+            },
+            {
+                id: 4,
+                name: "Dr. Bikash Adhikari",
+                specialization: "Trauma & PTSD",
+                experience: "15 years",
+                location: "Chitwan",
+                languages: "Nepali, English",
+                sessionTypes: ["Online", "In-Person"],
+                availability: "Mon-Fri: 9 AM - 5 PM",
+                fee: "NPR 3000-4000 per session",
+                education: "PhD in Trauma Psychology, International University",
+                avatar: "BA"
+            }
+        ];
+
+        // Navigation Functions
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Initialize page-specific content
+            if (pageId === 'assessment') {
+                initializeAssessment();
+            } else if (pageId === 'results') {
+                loadAssessmentResults();
+            } else if (pageId === 'solutions') {
+                loadPersonalizedSolutions();
+            } else if (pageId === 'therapists') {
+                loadTherapists();
+            }
+        }
+
+        function scrollToFeatures() {
+            document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Assessment Functions
+        function initializeAssessment() {
+            currentQuestionIndex = 0;
+            Object.keys(answers).forEach(key => delete answers[key]);
+            displayQuestion();
+            updateProgress();
+            
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const form = document.getElementById('assessmentForm');
+            
+            if (nextBtn) nextBtn.onclick = nextQuestion;
+            if (prevBtn) prevBtn.onclick = previousQuestion;
+            if (form) form.onsubmit = submitAssessment;
+        }
+
+        function displayQuestion() {
+            const questionContainer = document.getElementById('questionContainer');
+            if (!questionContainer) return;
+            
+            const question = assessmentQuestions[currentQuestionIndex];
+            
+            questionContainer.innerHTML = `
+                <div class="question">
+                    <h3>${question.question}</h3>
+                    <div class="options">
+                        ${question.options.map(option => `
+                            <label class="option" data-value="${option.value}">
+                                <input type="radio" name="question_${question.id}" value="${option.value}" 
+                                       ${answers[question.id] == option.value ? 'checked' : ''}>
+                                <span>${option.text}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            // Add click handlers for options
+            const options = questionContainer.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                    
+                    // Remove selected class from all options
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Store answer
+                    answers[question.id] = parseInt(this.dataset.value);
+                    
+                    // Enable next button
+                    const nextBtn = document.getElementById('nextBtn');
+                    if (nextBtn) nextBtn.disabled = false;
+                });
+            });
+            
+            // Check if answer exists for current question
+            if (answers[question.id] !== undefined) {
+                const selectedOption = questionContainer.querySelector(`[data-value="${answers[question.id]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                    selectedOption.querySelector('input').checked = true;
+                }
+            }
+            
+            updateNavigationButtons();
+        }
+
+        function updateProgress() {
+            const progressFill = document.getElementById('progressFill');
+            const currentQuestionSpan = document.getElementById('currentQuestion');
+            
+            if (progressFill) {
+                const progress = ((currentQuestionIndex + 1) / assessmentQuestions.length) * 100;
+                progressFill.style.width = `${progress}%`;
+            }
+            
+            if (currentQuestionSpan) {
+                currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            }
+        }
+
+        function updateNavigationButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Show/hide previous button
+            if (prevBtn) {
+                prevBtn.style.display = currentQuestionIndex > 0 ? 'inline-block' : 'none';
+            }
+            
+            // Show/hide next/submit buttons
+            if (currentQuestionIndex === assessmentQuestions.length - 1) {
+                if (nextBtn) nextBtn.style.display = 'none';
+                if (submitBtn) submitBtn.style.display = 'inline-block';
+            } else {
+                if (nextBtn) nextBtn.style.display = 'inline-block';
+                if (submitBtn) submitBtn.style.display = 'none';
+            }
+            
+            // Disable next button if no answer selected
+            const currentQuestion = assessmentQuestions[currentQuestionIndex];
+            if (nextBtn) nextBtn.disabled = answers[currentQuestion.id] === undefined;
+            if (submitBtn) submitBtn.disabled = Object.keys(answers).length < assessmentQuestions.length;
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < assessmentQuestions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+                updateProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+                updateProgress();
+            }
+        }
+
+        function submitAssessment(e) {
+            e.preventDefault();
+            
+            // Calculate total score
+            const totalScore = Object.values(answers).reduce((sum, value) => sum + value, 0);
+            
+            // Determine severity level
+            let severity, severityLevel, recommendations;
+            
+            if (totalScore <= 15) {
+                severity = 'normal';
+                severityLevel = 'Good Mental Health';
+                recommendations = [
+                    'Continue maintaining your positive mental health habits',
+                    'Keep engaging in activities you enjoy',
+                    'Maintain social connections with friends and family',
+                    'Practice regular self-care routines'
+                ];
+            } else if (totalScore <= 30) {
+                severity = 'mild';
+                severityLevel = 'Mild Concerns';
+                recommendations = [
+                    'Consider incorporating stress-reduction techniques',
+                    'Increase physical activity and exercise',
+                    'Practice mindfulness or meditation',
+                    'Ensure adequate sleep and nutrition',
+                    'Talk to trusted friends or family members'
+                ];
+            } else if (totalScore <= 45) {
+                severity = 'moderate';
+                severityLevel = 'Moderate Concerns';
+                recommendations = [
+                    'Consider speaking with a mental health professional',
+                    'Implement structured stress management techniques',
+                    'Join support groups or community activities',
+                    'Consider counseling or therapy sessions',
+                    'Monitor your symptoms regularly'
+                ];
+            } else {
+                severity = 'severe';
+                severityLevel = 'Serious Concerns';
+                recommendations = [
+                    'Seek professional mental health support immediately',
+                    'Consider booking an appointment with a therapist',
+                    'Reach out to mental health helplines if needed',
+                    'Inform trusted family members or friends about your situation',
+                    'Consider medication evaluation if recommended by a professional'
+                ];
+            }
+            
+            // Store results
+            const results = {
+                score: totalScore,
+                maxScore: assessmentQuestions.length * 3,
+                severity: severity,
+                severityLevel: severityLevel,
+                recommendations: recommendations,
+                answers: answers,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('mindlink_assessment_results', JSON.stringify(results));
+            
+            // Show results page
+            showPage('results');
+        }
+
+        // Results Functions
+        function loadAssessmentResults() {
+            const resultsData = localStorage.getItem('mindlink_assessment_results');
+            
+            if (!resultsData) {
+                // No results found, show message
+                const resultsContainer = document.querySelector('.results-container');
+                if (resultsContainer) {
+                    resultsContainer.innerHTML = `
+                        <h1>No Assessment Results Found</h1>
+                        <p>Please complete the assessment first to see your results.</p>
+                        <button onclick="showPage('assessment')" class="btn btn-primary">Take Assessment</button>
+                    `;
+                }
+                return;
+            }
+            
+            const results = JSON.parse(resultsData);
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            const resultCard = document.getElementById('resultCard');
+            const resultIcon = document.getElementById('resultIcon');
+            const severityLevel = document.getElementById('severityLevel');
+            const severityDescription = document.getElementById('severityDescription');
+            const scoreValue = document.getElementById('scoreValue');
+            const recommendations = document.getElementById('recommendations');
+            const solutionsBtn = document.getElementById('solutionsBtn');
+            
+            if (!resultCard) return;
+            
+            // Update result card styling based on severity
+            resultCard.className = `result-card severity-${results.severity}`;
+            
+            // Set appropriate icon and colors
+            const severityConfig = {
+                normal: {
+                    icon: '🌟',
+                    description: 'Your responses indicate good mental health. Keep up the positive habits and continue taking care of yourself.',
+                    color: '#48bb78'
+                },
+                mild: {
+                    icon: '🌤️',
+                    description: 'Your responses suggest some mild concerns. This is normal and manageable with some lifestyle adjustments.',
+                    color: '#ed8936'
+                },
+                moderate: {
+                    icon: '⚠️',
+                    description: 'Your responses indicate moderate mental health concerns. Consider seeking additional support and implementing coping strategies.',
+                    color: '#ed8936'
+                },
+                severe: {
+                    icon: '🚨',
+                    description: 'Your responses suggest significant mental health concerns. We strongly recommend seeking professional help.',
+                    color: '#e53e3e'
+                }
+            };
+            
+            const config = severityConfig[results.severity];
+            
+            if (resultIcon) resultIcon.textContent = config.icon;
+            if (severityLevel) {
+                severityLevel.textContent = results.severityLevel;
+                severityLevel.style.color = config.color;
+            }
+            if (severityDescription) severityDescription.textContent = config.description;
+            if (scoreValue) scoreValue.textContent = results.score;
+            
+            // Display recommendations
+            if (recommendations) {
+                recommendations.innerHTML = `
+                    <h3>Personalized Recommendations</h3>
+                    <ul>
+                        ${results.recommendations.map(rec => `<li>✓ ${rec}</li>`).join('')}
+                    </ul>
+                `;
+            }
+            
+            // Update solutions button based on severity
+            if (solutionsBtn) {
+                if (results.severity === 'severe') {
+                    solutionsBtn.innerHTML = '🏥 Get Professional Help';
+                    solutionsBtn.style.background = 'linear-gradient(135deg, #e53e3e 0%, #c53030 100%)';
+                } else if (results.severity === 'moderate') {
+                    solutionsBtn.innerHTML = '💪 View Support Resources';
+                    solutionsBtn.style.background = 'linear-gradient(135deg, #ed8936 0%, #dd6b20 100%)';
+                } else {
+                    solutionsBtn.innerHTML = '🌱 Explore Wellness Tips';
+                }
+            }
+        }
+
+        // Solutions Functions
+        function loadPersonalizedSolutions() {
+            const resultsData = localStorage.getItem('mindlink_assessment_results');
+            
+            if (!resultsData) {
+                showGeneralSolutions();
+                return;
+            }
+            
+            const results = JSON.parse(resultsData);
+            showPersonalizedSolutions(results);
+        }
+
+        function showPersonalizedSolutions(results) {
+            const solutionsIntro = document.getElementById('solutionsIntro');
+            const solutionsContent = document.getElementById('solutionsContent');
+            
+            if (solutionsIntro) {
+                solutionsIntro.textContent = `Based on your ${results.severityLevel.toLowerCase()} assessment results, here are personalized recommendations for your mental well-being.`;
+            }
+            
+            let solutionsHTML = '';
+            
+            switch (results.severity) {
+                case 'normal':
+                    solutionsHTML = generateNormalSolutions();
+                    break;
+                case 'mild':
+                    solutionsHTML = generateMildSolutions();
+                    break;
+                case 'moderate':
+                    solutionsHTML = generateModerateSolutions();
+                    break;
+                case 'severe':
+                    solutionsHTML = generateSevereSolutions();
+                    break;
+                default:
+                    solutionsHTML = generateGeneralSolutions();
+            }
+            
+            if (solutionsContent) {
+                solutionsContent.innerHTML = solutionsHTML;
+            }
+        }
+
+        function generateNormalSolutions() {
+            return `
+                <div class="solution-category">
+                    <h2>🌟 Maintain Your Positive Mental Health</h2>
+                    <div class="solution-items">
+                        <div class="solution-item">
+                            <h3>🏃‍♀️ Stay Active</h3>
+                            <p>Continue your regular physical activities and try new forms of exercise to keep things interesting.</p>
+                            <button onclick="showExerciseRoutines()" class="btn btn-small btn-primary">View Exercise Ideas</button>
+                        </div>
+                        <div class="solution-item">
+                            <h3>🧘‍♀️ Mindfulness Practice</h3>
+                            <p>Maintain your mental clarity with daily mindfulness or meditation practices.</p>
+                            <button onclick="startMeditation()" class="btn btn-small btn-primary">Start 5-Min Meditation</button>
+                        </div>
+                        <div class="solution-item">
+                            <h3>📚 Personal Growth</h3>
+                            <p>Continue learning and growing with books, courses, or new hobbies that interest you.</p>
+                            <button onclick="showLearningResources()" class="btn btn-small btn-primary">Explore Resources</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateMildSolutions() {
+            return `
+                <div class="solution-category">
+                    <h2>🌤️ Gentle Self-Care Strategies</h2>
+                    <div class="solution-items">
+                        <div class="solution-item">
+                            <h3>🛁 Relaxation Techniques</h3>
+                            <p>Try deep breathing exercises, warm baths, or gentle stretching to reduce stress.</p>
+                            <button onclick="showBreathingExercise()" class="btn btn-small btn-primary">Try Breathing Exercise</button>
+                        </div>
+                        <div class="solution-item">
+                            <h3>🎵 Music Therapy</h3>
+                            <p>Listen to calming music or nature sounds to help regulate your mood.</p>
+                            <button onclick="playMusic()" class="btn btn-small btn-primary">Play Relaxing Music</button>
+                        </div>
+                        <div class="solution-item">
+                            <h3>📝 Journaling</h3>
+                            <p>Write down your thoughts and feelings to process emotions and gain clarity.</p>
+                            <button onclick="startJournaling()" class="btn btn-small btn-primary">Start Journal Entry</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateModerateSolutions() {
+            return `
+                <div class="solution-category">
+                    <h2>⚠️ Structured Support Strategies</h2>
+                    <div class="solution-items">
+                        <div class="solution-item">
+                            <h3>🏥 Professional Guidance</h3>
+                            <p>Consider scheduling a consultation with a mental health professional for personalized support.</p>
+                            <button onclick="showPage('therapists')" class="btn btn-small btn-primary">Find Therapists</button>
+                        </div>
+                        <div class="solution-item">
+                            <h3>👥 Support Groups</h3>
+                            <p>Join local or online support groups to connect with others who understand your experiences.</p>
+                            <button onclick="showSupportGroups()" class="btn btn-small btn-primary">Find Groups</button>
+                        </div>
+                        <div class="solution-item">
+                            <h3>📋 Structured Routine</h3>
+                            <p>Create a daily routine that includes self-care activities and stress management techniques.</p>
+                            <button onclick="createRoutinePlan()" class="btn btn-small btn-primary">Build Routine</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateSevereSolutions() {
+            return `
+                <div class="solution-category severity-severe">
+                    <h2>🚨 Immediate Professional Support Needed</h2>
+                    <div class="solution-items">
+                        <div class="solution-item">
+                            <h3>🏥 Book Therapist Appointment</h3>
+                            <p>It's important to speak with a qualified mental health professional as soon as possible.</p>
+                            <button onclick="showPage('therapists')" class="btn btn-primary">Book Appointment Now</button>
+                        </div>
+                        <div class="solution-item">
+                            <h3>📞 Crisis Support</h3>
+                            <p>If you're in immediate distress, please reach out to crisis helplines available 24/7.</p>
+                            <button onclick="showCrisisContacts()" class="btn btn-primary">Emergency Contacts</button>
+                        </div>
+                        <div class="solution-item">
+                            <h3>👨‍👩‍👧‍👦 Family Support</h3>
+                            <p>Consider informing trusted family members or friends about your situation for additional support.</p>
+                            <button onclick="showFamilyGuidance()" class="btn btn-secondary">Family Resources</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showGeneralSolutions() {
+            const solutionsIntro = document.getElementById('solutionsIntro');
+            const solutionsContent = document.getElementById('solutionsContent');
+            
+            if (solutionsIntro) {
+                solutionsIntro.textContent = 'Explore these mental health resources and tools to support your well-being journey.';
+            }
+            
+            if (solutionsContent) {
+                solutionsContent.innerHTML = generateGeneralSolutions();
+            }
+        }
+
+        function generateGeneralSolutions() {
+            return `
+                <div class="solution-category">
+                    <h2>🌈 General Mental Health Resources</h2>
+                    <div class="solution-items">
+                        <div class="solution-item">
+                            <h3>🧘‍♀️ Mindfulness & Meditation</h3>
+                            <p>Practice mindfulness and meditation to reduce stress and improve mental clarity.</p>
+                            <button onclick="startMeditation()" class="btn btn-small btn-primary">Start Meditation</button>
+                        </div>
+                        <div class="solution-item">
+                            <h3>🏃‍♀️ Physical Exercise</h3>
+                            <p>Regular physical activity can significantly improve mood and reduce anxiety.</p>
+                            <button onclick="showExerciseRoutines()" class="btn btn-small btn-primary">Exercise Plans</button>
+                        </div>
+                        <div class="solution-item">
+                            <h3>📚 Educational Resources</h3>
+                            <p>Learn more about mental health through articles, books, and educational content.</p>
+                            <button onclick="showArticles()" class="btn btn-small btn-primary">Read Articles</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Therapists Functions
+        function loadTherapists() {
+            const therapistsGrid = document.getElementById('therapistsGrid');
+            
+            if (!therapistsGrid) return;
+            
+            therapistsGrid.innerHTML = therapistsData.map(therapist => `
+                <div class="therapist-card">
+                    <div class="therapist-avatar">${therapist.avatar}</div>
+                    <h3>${therapist.name}</h3>
+                    <div class="therapist-specialization">${therapist.specialization}</div>
+                    <div class="therapist-info">
+                        <p><strong>Experience:</strong> ${therapist.experience}</p>
+                        <p><strong>Location:</strong> ${therapist.location}</p>
+                        <p><strong>Languages:</strong> ${therapist.languages}</p>
+                        <p><strong>Session Types:</strong> ${therapist.sessionTypes.join(', ')}</p>
+                        <p><strong>Availability:</strong> ${therapist.availability}</p>
+                        <p><strong>Fee:</strong> ${therapist.fee}</p>
+                        <p><strong>Education:</strong> ${therapist.education}</p>
+                    </div>
+                    <button onclick="selectTherapist(${therapist.id})" class="btn btn-primary">
+                        Book Appointment
+                    </button>
+                </div>
+            `).join('');
+            
+            setupBookingForm();
+            setMinDate();
+        }
+
+        function selectTherapist(therapistId) {
+            selectedTherapist = therapistsData.find(t => t.id === therapistId);
+            
+            if (selectedTherapist) {
+                const selectedTherapistInput = document.getElementById('selectedTherapist');
+                const bookingSection = document.getElementById('bookingSection');
+                
+                if (selectedTherapistInput) {
+                    selectedTherapistInput.value = selectedTherapist.name;
+                }
+                
+                if (bookingSection) {
+                    bookingSection.style.display = 'block';
+                    bookingSection.scrollIntoView({ behavior: 'smooth' });
+                }
+                
+                updateSessionTypeOptions();
+            }
+        }
+
+        function updateSessionTypeOptions() {
+            const sessionTypeSelect = document.getElementById('sessionType');
+            if (!sessionTypeSelect || !selectedTherapist) return;
+            
+            sessionTypeSelect.innerHTML = '<option value="">Select Session Type</option>';
+            
+            selectedTherapist.sessionTypes.forEach(type => {
+                const option = document.createElement('option');
+                option.value = type.toLowerCase().replace(' ', '-');
+                option.textContent = type;
+                sessionTypeSelect.appendChild(option);
+            });
+        }
+
+        function cancelBooking() {
+            const bookingSection = document.getElementById('bookingSection');
+            const bookingForm = document.getElementById('bookingForm');
+            
+            if (bookingSection) bookingSection.style.display = 'none';
+            if (bookingForm) bookingForm.reset();
+            
+            selectedTherapist = null;
+        }
+
+        function setupBookingForm() {
+            const bookingForm = document.getElementById('bookingForm');
+            if (bookingForm) {
+                bookingForm.onsubmit = handleBookingSubmission;
+            }
+        }
+
+        function setMinDate() {
+            const appointmentDate = document.getElementById('appointmentDate');
+            if (!appointmentDate) return;
+            
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            appointmentDate.min = tomorrow.toISOString().split('T')[0];
+            
+            // Set max date to 3 months from now
+            const maxDate = new Date(today);
+            maxDate.setMonth(maxDate.getMonth() + 3);
+            appointmentDate.max = maxDate.toISOString().split('T')[0];
+        }
+
+        function handleBookingSubmission(e) {
+            e.preventDefault();
+            
+            const bookingData = {
+                therapist: selectedTherapist,
+                patientName: document.getElementById('patientName').value,
+                patientEmail: document.getElementById('patientEmail').value,
+                patientPhone: document.getElementById('patientPhone').value,
+                appointmentDate: document.getElementById('appointmentDate').value,
+                appointmentTime: document.getElementById('appointmentTime').value,
+                sessionType: document.getElementById('sessionType').value,
+                concerns: document.getElementById('concerns').value,
+                bookingId: generateBookingId(),
+                timestamp: new Date().toISOString()
+            };
+            
+            // Validate required fields
+            if (!bookingData.patientName || !bookingData.patientEmail || !bookingData.patientPhone || 
+                !bookingData.appointmentDate || !bookingData.appointmentTime || !bookingData.sessionType) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Store booking data
+            storeBookingData(bookingData);
+            
+            // Show confirmation
+            showBookingConfirmation(bookingData);
+            
+            // Reset form
+            document.getElementById('bookingForm').reset();
+            cancelBooking();
+        }
+
+        function generateBookingId() {
+            return 'ML' + Date.now().toString().slice(-8) + Math.random().toString(36).substr(2, 4).toUpperCase();
+        }
+
+        function storeBookingData(bookingData) {
+            const existingBookings = JSON.parse(localStorage.getItem('mindlink_bookings') || '[]');
+            existingBookings.push(bookingData);
+            localStorage.setItem('mindlink_bookings', JSON.stringify(existingBookings));
+        }
+
+        function showBookingConfirmation(bookingData) {
+            const modal = document.getElementById('confirmationModal');
+            const appointmentDetails = document.getElementById('appointmentDetails');
+            
+            if (!modal || !appointmentDetails) return;
+            
+            const appointmentDate = new Date(bookingData.appointmentDate);
+            const formattedDate = appointmentDate.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            const formattedTime = formatTime(bookingData.appointmentTime);
+            
+            appointmentDetails.innerHTML = `
+                <div class="appointment-summary">
+                    <h3>Appointment Details</h3>
+                    <p><strong>Booking ID:</strong> ${bookingData.bookingId}</p>
+                    <p><strong>Therapist:</strong> ${bookingData.therapist.name}</p>
+                    <p><strong>Date:</strong> ${formattedDate}</p>
+                    <p><strong>Time:</strong> ${formattedTime}</p>
+                    <p><strong>Session Type:</strong> ${bookingData.sessionType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
+                    <p><strong>Patient:</strong> ${bookingData.patientName}</p>
+                    <p><strong>Contact:</strong> ${bookingData.patientEmail}</p>
+                </div>
+                <div class="next-steps">
+                    <h4>Next Steps:</h4>
+                    <ul>
+                        <li>You will receive a confirmation email within 24 hours</li>
+                        <li>The therapist's office will contact you to confirm the appointment</li>
+                        <li>Please arrive 10 minutes early for in-person sessions</li>
+                        <li>For online sessions, you'll receive a video call link via email</li>
+                    </ul>
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        function formatTime(time24) {
+            const [hours, minutes] = time24.split(':');
+            const hour12 = hours % 12 || 12;
+            const ampm = hours < 12 ? 'AM' : 'PM';
+            return `${hour12}:${minutes} ${ampm}`;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('confirmationModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        // Interactive Functions
+        function playMusic() {
+            const musicPlayer = document.getElementById('musicPlayer');
+            const audioPlayer = document.getElementById('audioPlayer');
+            
+            if (musicPlayer) musicPlayer.style.display = 'block';
+            if (audioPlayer) audioPlayer.play();
+        }
+
+        function closePlayer() {
+            const musicPlayer = document.getElementById('musicPlayer');
+            const audioPlayer = document.getElementById('audioPlayer');
+            
+            if (musicPlayer) musicPlayer.style.display = 'none';
+            if (audioPlayer) {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            }
+        }
+
+        function startMeditation() {
+            const modal = createModal('Guided Meditation', `
+                <div class="meditation-guide">
+                    <h3>5-Minute Mindfulness Meditation</h3>
+                    <div class="meditation-steps">
+                        <p><strong>Step 1:</strong> Find a comfortable seated position</p>
+                        <p><strong>Step 2:</strong> Close your eyes and focus on your breath</p>
+                        <p><strong>Step 3:</strong> Notice thoughts without judgment</p>
+                        <p><strong>Step 4:</strong> Gently return focus to your breath</p>
+                    </div>
+                    <div class="meditation-timer">
+                        <div class="timer-display" id="meditationTimer">5:00</div>
+                        <button onclick="startMeditationTimer()" class="btn btn-primary">Start Meditation</button>
+                    </div>
+                </div>
+            `);
+            document.body.appendChild(modal);
+        }
+
+        function startMeditationTimer() {
+            let timeLeft = 300; // 5 minutes in seconds
+            const timerDisplay = document.getElementById('meditationTimer');
+            
+            const timer = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                if (timerDisplay) {
+                    timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    if (timerDisplay) timerDisplay.textContent = 'Complete! 🧘‍♀️';
+                }
+                timeLeft--;
+            }, 1000);
+        }
+
+        function showArticles() {
+            const modal = createModal('Mental Health Articles', `
+                <div class="articles-list">
+                    <div class="article-item">
+                        <h4>Understanding Anxiety and Depression</h4>
+                        <p>Learn about the common signs, symptoms, and coping strategies for anxiety and depression.</p>
+                        <button class="btn btn-small btn-secondary">Read More</button>
+                    </div>
+                    <div class="article-item">
+                        <h4>Building Resilience in Daily Life</h4>
+                        <p>Discover practical ways to build mental resilience and cope with life's challenges.</p>
+                        <button class="btn btn-small btn-secondary">Read More</button>
+                    </div>
+                    <div class="article-item">
+                        <h4>The Importance of Sleep for Mental Health</h4>
+                        <p>Understand how sleep affects your mental health and tips for better sleep hygiene.</p>
+                        <button class="btn btn-small btn-secondary">Read More</button>
+                    </div>
+                    <div class="article-item">
+                        <h4>Mindfulness in Nepali Culture</h4>
+                        <p>Explore how traditional Nepali practices align with modern mindfulness techniques.</p>
+                        <button class="btn btn-small btn-secondary">Read More</button>
+                    </div>
+                </div>
+            `);
+            document.body.appendChild(modal);
+        }
+
+        function showBreathingExercise() {
+            const modal = createModal('Deep Breathing Exercise', `
+                <div class="breathing-exercise">
+                    <h3>4-7-8 Breathing Technique</h3>
+                    <p>Follow these steps:</p>
+                    <ol>
+                        <li>Inhale through your nose for 4 counts</li>
+                        <li>Hold your breath for 7 counts</li>
+                        <li>Exhale through your mouth for 8 counts</li>
+                        <li>Repeat 3-4 times</li>
+                    </ol>
+                    <div class="breathing-timer">
+                        <div class="timer-circle">
+                            <span id="timerText">Ready?</span>
+                        </div>
+                        <button onclick="startBreathingTimer()" class="btn btn-primary">Start Exercise</button>
+                    </div>
+                </div>
+            `);
+            document.body.appendChild(modal);
+        }
+
+        function startBreathingTimer() {
+            const timerText = document.getElementById('timerText');
+            const phases = [
+                { text: 'Inhale...', duration: 4000 },
+                { text: 'Hold...', duration: 7000 },
+                { text: 'Exhale...', duration: 8000 }
+            ];
+            
+            let currentPhase = 0;
+            let cycles = 0;
+            const maxCycles = 4;
+            
+            function runPhase() {
+                if (cycles >= maxCycles) {
+                    if (timerText) timerText.textContent = 'Complete! 🌟';
+                    return;
+                }
+                
+                const phase = phases[currentPhase];
+                if (timerText) timerText.textContent = phase.text;
+                
+                setTimeout(() => {
+                    currentPhase++;
+                    if (currentPhase >= phases.length) {
+                        currentPhase = 0;
+                        cycles++;
+                    }
+                    runPhase();
+                }, phase.duration);
+            }
+            
+            runPhase();
+        }
+
+        function showCrisisContacts() {
+            const modal = createModal('🚨 Crisis Support Contacts', `
+                <div class="crisis-contacts">
+                    <div class="emergency-warning">
+                        <p><strong>If you are in immediate danger, please call emergency services: 100 or 102</strong></p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Nepal Mental Health Helpline</h4>
+                        <p><strong>Phone:</strong> 1660-01-16600</p>
+                        <p><strong>Available:</strong> 24/7</p>
+                        <p>Free mental health support and crisis intervention</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Transcultural Psychosocial Organization (TPO)</h4>
+                        <p><strong>Phone:</strong> 01-4102037</p>
+                        <p><strong>Available:</strong> 9 AM - 5 PM</p>
+                        <p>Professional mental health services</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Suicide Prevention Helpline</h4>
+                        <p><strong>Phone:</strong> 16600-01-16600</p>
+                        <p><strong>Available:</strong> 24/7</p>
+                        <p>Immediate support for suicidal thoughts</p>
+                    </div>
+                </div>
+            `);
+            document.body.appendChild(modal);
+        }
+
+        function createModal(title, content) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>${title}</h2>
+                        <button onclick="this.closest('.modal').remove()" class="close-btn">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        ${content}
+                    </div>
+                </div>
+            `;
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+            
+            return modal;
+        }
+
+        // Placeholder functions for buttons that don't have full implementations
+        function showExerciseRoutines() {
+            alert('Exercise routines feature coming soon!');
+        }
+
+        function showLearningResources() {
+            alert('Learning resources feature coming soon!');
+        }
+
+        function startJournaling() {
+            alert('Journaling feature coming soon!');
+        }
+
+        function showSupportGroups() {
+            alert('Support groups feature coming soon!');
+        }
+
+        function createRoutinePlan() {
+            alert('Routine planning feature coming soon!');
+        }
+
+        function showFamilyGuidance() {
+            alert('Family guidance resources coming soon!');
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            // Show home page by default
+            showPage('home');
+            
+            // Add smooth scrolling for anchor links
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
