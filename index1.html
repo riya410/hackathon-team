@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindLink - Mental Wellness Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0ea5e9;
+            --secondary-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --success-green: #10b981;
+            --warning-yellow: #f59e0b;
+            --danger-red: #ef4444;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --background-soft: #f8fafc;
+            --white-80: rgba(255, 255, 255, 0.8);
+            --blue-50: rgba(59, 130, 246, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #f8fafc 0%, #dbeafe 50%, #e0e7ff 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white-80);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-blue);
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 0.25rem;
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 0.25rem;
+            margin-left: 1rem;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: transparent;
+            color: var(--text-secondary);
+        }
+
+        .lang-btn.active {
+            background: white;
+            color: var(--primary-blue);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, 
+                rgba(59, 130, 246, 0.1) 0%, 
+                rgba(6, 182, 212, 0.1) 50%, 
+                rgba(139, 92, 246, 0.1) 100%);
+        }
+
+        .hero-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero .subtitle {
+            display: block;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 640px) {
+            .hero-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-cyan));
+            color: white;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            color: var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-number.blue { color: var(--primary-blue); }
+        .stat-number.cyan { color: var(--secondary-cyan); }
+        .stat-number.purple { color: var(--accent-purple); }
+        .stat-number.green { color: var(--success-green); }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Features Section */
+        .section {
+            padding: 5rem 1rem;
+        }
+
+        .section.bg-white {
+            background: var(--white-80);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .feature-card {
+            background: var(--white-80);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .feature-icon.blue { background: var(--primary-blue); }
+        .feature-icon.rose { background: #f43f5e; }
+        .feature-icon.purple { background: var(--accent-purple); }
+        .feature-icon.green { background: var(--success-green); }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-cyan));
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section .section-title,
+        .cta-section .section-description {
+            color: white;
+        }
+
+        .cta-section .section-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary-blue);
+        }
+
+        .btn-white:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--white-80);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+            padding: 2rem 1rem;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+            padding: 0.5rem;
+        }
+
+        .mobile-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.25rem;
+        }
+
+        .mobile-nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.75rem 0.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-blue);
+        }
+
+        .mobile-nav-icon {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+
+            body {
+                padding-bottom: 80px;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showHome()">
+                <div class="logo-icon">🧠</div>
+                <div class="logo-text">
+                    <h1 id="nav-title">MindLink</h1>
+                    <p id="nav-tagline">Mental Wellness Platform</p>
+                </div>
+            </a>
+
+            <div class="nav-links">
+                <a href="#" class="nav-link active" onclick="showHome()">
+                    <span>🏠</span>
+                    <span id="nav-home">Home</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showAssessment()">
+                    <span>🧠</span>
+                    <span id="nav-assessment">Assessment</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showTherapists()">
+                    <span>❤️</span>
+                    <span id="nav-therapists">Therapists</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showAppointments()">
+                    <span>📅</span>
+                    <span id="nav-appointments">Appointments</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showResources()">
+                    <span>📚</span>
+                    <span id="nav-resources">Resources</span>
+                </a>
+
+                <div class="language-switcher">
+                    <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')">EN</button>
+                    <button class="lang-btn" id="btn-ne" onclick="setLanguage('ne')">NE</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <div class="mobile-nav-grid">
+            <a href="#" class="mobile-nav-link active" onclick="showHome()">
+                <div class="mobile-nav-icon">🏠</div>
+                <span id="mobile-home">Home</span>
+            </a>
+            <a href="#" class="mobile-nav-link" onclick="showAssessment()">
+                <div class="mobile-nav-icon">🧠</div>
+                <span id="mobile-assessment">Assessment</span>
+            </a>
+            <a href="#" class="mobile-nav-link" onclick="showTherapists()">
+                <div class="mobile-nav-icon">❤️</div>
+                <span id="mobile-therapists">Therapists</span>
+            </a>
+            <a href="#" class="mobile-nav-link" onclick="showAppointments()">
+                <div class="mobile-nav-icon">📅</div>
+                <span id="mobile-appointments">Appointments</span>
+            </a>
+            <a href="#" class="mobile-nav-link" onclick="showResources()">
+                <div class="mobile-nav-icon">📚</div>
+                <span id="mobile-resources">Resources</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Home Page -->
+        <div id="home-page" class="page">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content fade-in">
+                    <h1>
+                        <span id="hero-title">Your Mental Wellness</span>
+                        <span class="subtitle" id="hero-subtitle">Journey Starts Here</span>
+                    </h1>
+                    <p id="hero-description">
+                        Take control of your mental health with personalized assessments, professional support, 
+                        and evidence-based wellness solutions designed for everyone in Nepal.
+                    </p>
+                    
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary" onclick="showAssessment()">
+                            <span id="start-assessment">Start Free Assessment</span>
+                            <span>→</span>
+                        </a>
+                        <a href="#" class="btn btn-outline" onclick="showTherapists()">
+                            <span id="find-therapist">Find a Therapist</span>
+                        </a>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat">
+                            <div class="stat-number blue">1000+</div>
+                            <div class="stat-label" id="assessments-completed">Assessments Completed</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number cyan">50+</div>
+                            <div class="stat-label" id="licensed-therapists">Licensed Therapists</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number purple">24/7</div>
+                            <div class="stat-label" id="support-available">Support Available</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number green">95%</div>
+                            <div class="stat-label" id="user-satisfaction">User Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="section bg-white">
+                <div class="container">
+                    <div class="section-header fade-in">
+                        <h2 class="section-title" id="features-title">Comprehensive Mental Health Support</h2>
+                        <p class="section-description" id="features-description">
+                            From initial assessment to ongoing support, we provide everything you need for your mental wellness journey
+                        </p>
+                    </div>
+
+                    <div class="features-grid">
+                        <div class="feature-card slide-up">
+                            <div class="feature-icon blue">🧠</div>
+                            <h3 class="feature-title" id="feature1-title">Mental Health Assessment</h3>
+                            <p class="feature-description" id="feature1-desc">
+                                Comprehensive 20-question evaluation to understand your mental wellness
+                            </p>
+                        </div>
+                        <div class="feature-card slide-up">
+                            <div class="feature-icon rose">❤️</div>
+                            <h3 class="feature-title" id="feature2-title">Personalized Solutions</h3>
+                            <p class="feature-description" id="feature2-desc">
+                                Tailored recommendations including exercises, content, and professional support
+                            </p>
+                        </div>
+                        <div class="feature-card slide-up">
+                            <div class="feature-icon purple">👥</div>
+                            <h3 class="feature-title" id="feature3-title">Nepal Therapists</h3>
+                            <p class="feature-description" id="feature3-desc">
+                                Connect with licensed mental health professionals across Nepal
+                            </p>
+                        </div>
+                        <div class="feature-card slide-up">
+                            <div class="feature-icon green">🛡️</div>
+                            <h3 class="feature-title" id="feature4-title">Confidential & Secure</h3>
+                            <p class="feature-description" id="feature4-desc">
+                                Your mental health journey is private and protected
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="section cta-section">
+                <div class="container">
+                    <div class="section-header fade-in">
+                        <h2 class="section-title" id="cta-title">Ready to Begin Your Wellness Journey?</h2>
+                        <p class="section-description" id="cta-description">
+                            Take the first step towards better mental health. Our free assessment takes just 5 minutes and provides valuable insights.
+                        </p>
+                        <a href="#" class="btn btn-white" onclick="showAssessment()">
+                            <span id="cta-button">Start Your Assessment Now</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Other pages will be loaded here dynamically -->
+        <div id="assessment-page" class="page" style="display: none;">
+            <div class="container" style="padding: 4rem 1rem;">
+                <h1 id="assessment-title">Mental Health Assessment</h1>
+                <p>Assessment page content will be loaded here...</p>
+            </div>
+        </div>
+
+        <div id="therapists-page" class="page" style="display: none;">
+            <div class="container" style="padding: 4rem 1rem;">
+                <h1 id="therapists-title">Licensed Mental Health Therapists</h1>
+                <p>Therapists page content will be loaded here...</p>
+            </div>
+        </div>
+
+        <div id="appointments-page" class="page" style="display: none;">
+            <div class="container" style="padding: 4rem 1rem;">
+                <h1 id="appointments-title">My Appointments</h1>
+                <p>Appointments page content will be loaded here...</p>
+            </div>
+        </div>
+
+        <div id="resources-page" class="page" style="display: none;">
+            <div class="container" style="padding: 4rem 1rem;">
+                <h1 id="resources-title">Mental Wellness Resources</h1>
+                <p>Resources page content will be loaded here...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span style="font-size: 1.5rem;">🧠</span>
+                <span style="font-size: 1.125rem; font-weight: 600; color: var(--text-primary);" id="footer-title">MindLink</span>
+            </div>
+            <p class="footer-text" id="footer-description">
+                Supporting mental wellness across Nepal with professional care and resources
+            </p>
+            <div class="footer-features">
+                <span>🏥 <span id="footer-licensed">Licensed Therapists</span></span>
+                <span>🔒 <span id="footer-secure">Confidential & Secure</span></span>
+                <span>🇳🇵 <span id="footer-nepal">Nepal-focused</span></span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Translations
+        const translations = {
+            en: {
+                // Navigation
+                "nav-title": "MindLink",
+                "nav-tagline": "Mental Wellness Platform",
+                "nav-home": "Home",
+                "nav-assessment": "Assessment",
+                "nav-therapists": "Therapists",
+                "nav-appointments": "Appointments",
+                "nav-resources": "Resources",
+                
+                // Mobile nav
+                "mobile-home": "Home",
+                "mobile-assessment": "Assessment",
+                "mobile-therapists": "Therapists",
+                "mobile-appointments": "Appointments",
+                "mobile-resources": "Resources",
+                
+                // Hero section
+                "hero-title": "Your Mental Wellness",
+                "hero-subtitle": "Journey Starts Here",
+                "hero-description": "Take control of your mental health with personalized assessments, professional support, and evidence-based wellness solutions designed for everyone in Nepal.",
+                "start-assessment": "Start Free Assessment",
+                "find-therapist": "Find a Therapist",
+                "assessments-completed": "Assessments Completed",
+                "licensed-therapists": "Licensed Therapists",
+                "support-available": "Support Available",
+                "user-satisfaction": "User Satisfaction",
+                
+                // Features section
+                "features-title": "Comprehensive Mental Health Support",
+                "features-description": "From initial assessment to ongoing support, we provide everything you need for your mental wellness journey",
+                "feature1-title": "Mental Health Assessment",
+                "feature1-desc": "Comprehensive 20-question evaluation to understand your mental wellness",
+                "feature2-title": "Personalized Solutions",
+                "feature2-desc": "Tailored recommendations including exercises, content, and professional support",
+                "feature3-title": "Nepal Therapists",
+                "feature3-desc": "Connect with licensed mental health professionals across Nepal",
+                "feature4-title": "Confidential & Secure",
+                "feature4-desc": "Your mental health journey is private and protected",
+                
+                // CTA section
+                "cta-title": "Ready to Begin Your Wellness Journey?",
+                "cta-description": "Take the first step towards better mental health. Our free assessment takes just 5 minutes and provides valuable insights.",
+                "cta-button": "Start Your Assessment Now",
+                
+                // Footer
+                "footer-title": "MindLink",
+                "footer-description": "Supporting mental wellness across Nepal with professional care and resources",
+                "footer-licensed": "Licensed Therapists",
+                "footer-secure": "Confidential & Secure",
+                "footer-nepal": "Nepal-focused",
+                
+                // Page titles
+                "assessment-title": "Mental Health Assessment",
+                "therapists-title": "Licensed Mental Health Therapists",
+                "appointments-title": "My Appointments",
+                "resources-title": "Mental Wellness Resources"
+            },
+            ne: {
+                // Navigation
+                "nav-title": "माइन्डलिङ्क",
+                "nav-tagline": "मानसिक स्वास्थ्य प्लेटफर्म",
+                "nav-home": "गृह",
+                "nav-assessment": "मूल्याङ्कन",
+                "nav-therapists": "चिकित्सकहरू",
+                "nav-appointments": "अपोइन्टमेन्टहरू",
+                "nav-resources": "स्रोतहरू",
+                
+                // Mobile nav
+                "mobile-home": "गृह",
+                "mobile-assessment": "मूल्याङ्कन",
+                "mobile-therapists": "चिकित्सकहरू",
+                "mobile-appointments": "अपोइन्टमेन्टहरू",
+                "mobile-resources": "स्रोतहरू",
+                
+                // Hero section
+                "hero-title": "तपाईंको मानसिक स्वास्थ्य",
+                "hero-subtitle": "यात्रा यहाँबाट सुरु हुन्छ",
+                "hero-description": "नेपालमा सबैका लागि डिजाइन गरिएको व्यक्तिगत मूल्याङ्कन, व्यावसायिक समर्थन, र प्रमाण-आधारित कल्याण समाधानहरूको साथ आफ्नो मानसिक स्वास्थ्यको नियन्त्रण लिनुहोस्।",
+                "start-assessment": "नि:शुल्क मूल्याङ्कन सुरु गर्नुहोस्",
+                "find-therapist": "एक चिकित्सक खोज्नुहोस्",
+                "assessments-completed": "मूल्याङ्कनहरू सम्पन्न",
+                "licensed-therapists": "इजाजतप्राप्त चिकित्सकहरू",
+                "support-available": "सहयोग उपलब्ध",
+                "user-satisfaction": "प्रयोगकर्ता सन्तुष्टि",
+                
+                // Features section
+                "features-title": "व्यापक मानसिक स्वास्थ्य समर्थन",
+                "features-description": "प्रारम्भिक मूल्याङ्कनदेखि निरन्तर समर्थनसम्म, हामी तपाईंको मानसिक स्वास्थ्य यात्राको लागि आवश्यक सबै कुरा प्रदान गर्दछौं।",
+                "feature1-title": "मानसिक स्वास्थ्य मूल्याङ्कन",
+                "feature1-desc": "तपाईंको मानसिक स्वास्थ्य बुझ्नको लागि व्यापक २०-प्रश्न मूल्याङ्कन",
+                "feature2-title": "व्यक्तिगत समाधानहरू",
+                "feature2-desc": "व्यायाम, सामग्री, र व्यावसायिक समर्थन सहित उपयुक्त सिफारिसहरू",
+                "feature3-title": "नेपाली चिकित्सकहरू",
+                "feature3-desc": "नेपालभरिका इजाजतप्राप्त मानसिक स्वास्थ्य पेशेवरहरूसँग सम्पर्क गर्नुहोस्",
+                "feature4-title": "गोप्य र सुरक्षित",
+                "feature4-desc": "तपाईंको मानसिक स्वास्थ्य यात्रा निजी र सुरक्षित छ",
+                
+                // CTA section
+                "cta-title": "आफ्नो कल्याण यात्रा सुरु गर्न तयार हुनुहुन्छ?",
+                "cta-description": "राम्रो मानसिक स्वास्थ्यतर्फ पहिलो कदम चाल्नुहोस्। हाम्रो नि:शुल्क मूल्याङ्कनले केवल ५ मिनेट लिन्छ र बहुमूल्य अन्तरदृष्टि प्रदान गर्दछ।",
+                "cta-button": "अब आफ्नो मूल्याङ्कन सुरु गर्नुहोस्",
+                
+                // Footer
+                "footer-title": "माइन्डलिङ्क",
+                "footer-description": "नेपालभरि व्यावसायिक हेरचाह र स्रोतहरूका साथ मानसिक स्वास्थ्यलाई समर्थन गर्दै",
+                "footer-licensed": "इजाजतप्राप्त चिकित्सकहरू",
+                "footer-secure": "गोप्य र सुरक्षित",
+                "footer-nepal": "नेपाल-केन्द्रित",
+                
+                // Page titles
+                "assessment-title": "मानसिक स्वास्थ्य मूल्याङ्कन",
+                "therapists-title": "इजाजतप्राप्त मानसिक स्वास्थ्य चिकित्सकहरू",
+                "appointments-title": "मेरो अपोइन्टमेन्टहरू",
+                "resources-title": "मानसिक स्वास्थ्य स्रोतहरू"
+            }
+        };
+
+        // Current language
+        let currentLang = localStorage.getItem('mindlink_lang') || 'en';
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            setLanguage(currentLang);
+            initializeAnimations();
+        });
+
+        // Language switching
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('mindlink_lang', lang);
+            
+            // Update language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+            
+            // Update all text elements
+            Object.keys(translations[lang]).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            // Update document language
+            document.documentElement.lang = lang;
+        }
+
+        // Navigation functions
+        function showHome() {
+            showPage('home-page');
+            setActiveNav(0);
+        }
+
+        function showAssessment() {
+            showPage('assessment-page');
+            setActiveNav(1);
+        }
+
+        function showTherapists() {
+            showPage('therapists-page');
+            setActiveNav(2);
+        }
+
+        function showAppointments() {
+            showPage('appointments-page');
+            setActiveNav(3);
+        }
+
+        function showResources() {
+            showPage('resources-page');
+            setActiveNav(4);
+        }
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Reinitialize animations for the new page
+            setTimeout(initializeAnimations, 100);
+        }
+
+        function setActiveNav(index) {
+            // Desktop navigation
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            document.querySelectorAll('.nav-link')[index].classList.add('active');
+            
+            // Mobile navigation
+            document.querySelectorAll('.mobile-nav-link').forEach(link => link.classList.remove('active'));
+            document.querySelectorAll('.mobile-nav-link')[index].classList.add('active');
+        }
+
+        // Animation observer
+        function initializeAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all animation elements
+            document.querySelectorAll('.fade-in, .slide-up').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Assessment questions data (to be used in assessment page)
+        const assessmentQuestions = [
+            {
+                id: 1,
+                text_en: "I've had a hard time feeling happy or joyful lately.",
+                text_ne: "मैले हालै खुशी वा आनन्द महसुस गर्न गाह्रो भएको छ।",
+                category: "depression",
+                reverse: false
+            },
+            {
+                id: 2,
+                text_en: "I often feel worried or anxious.",
+                text_ne: "म प्रायः चिन्तित वा डरलाग्दो महसुस गर्छु।",
+                category: "anxiety",
+                reverse: false
+            },
+            // Add all 20 questions here...
+        ];
+
+        // Local storage for user data
+        const userDataManager = {
+            saveAssessment: function(assessmentData) {
+                const assessments = this.getAssessments();
+                assessments.push({
+                    ...assessmentData,
+                    id: Date.now(),
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('mindlink_assessments', JSON.stringify(assessments));
+            },
+            
+            getAssessments: function() {
+                return JSON.parse(localStorage.getItem('mindlink_assessments') || '[]');
+            },
+            
+            saveAppointment: function(appointmentData) {
+                const appointments = this.getAppointments();
+                appointments.push({
+                    ...appointmentData,
+                    id: Date.now(),
+                    timestamp: new Date().toISOString(),
+                    status: 'pending'
+                });
+                localStorage.setItem('mindlink_appointments', JSON.stringify(appointments));
+            },
+            
+            getAppointments: function() {
+                return JSON.parse(localStorage.getItem('mindlink_appointments') || '[]');
+            }
+        };
+
+        // Smooth scrolling for internal links
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('a[href^="#"]')) {
+                e.preventDefault();
+                const target = document.querySelector(e.target.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+
+        // Add loading states for buttons
+        function addLoadingState(button, text) {
+            button.disabled = true;
+            button.innerHTML = `<span style="opacity: 0.7">${text}...</span>`;
+        }
+
+        function removeLoadingState(button, originalText) {
+            button.disabled = false;
+            button.innerHTML = originalText;
+        }
+    </script>
+</body>
+</html>
